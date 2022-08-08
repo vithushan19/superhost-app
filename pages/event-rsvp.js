@@ -7,7 +7,7 @@ import { db } from "../utils/firebase-config"
 
 const EventRSVP = () => {
     const router = useRouter()
-    const questions = JSON.parse(router.query.questions)
+    const questions = router.query.questionData !== undefined ? JSON.parse(router.query.questionData) : {}
     const eventID = router.query.id
 
     const questionsMap = new Map(Object.entries(questions))
