@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import { db } from "../utils/firebase-config"
-import { doc, collection, addDoc, setDoc } from "firebase/firestore"
+import { doc, collection, addDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 import { useState } from "react"
 import ShareModal from "../components/ShareModal"
 import CardDetails from "../components/CardDetails"
@@ -37,8 +37,8 @@ const Confirmation = () => {
   const onCreateEvent = async (event) => {
     event.preventDefault()
     setShowLoadingSpinner(true)
-    
-    const newHostEventRef = await addDoc(collection(db, `/hosts/${hostEmail}/events`), {
+
+    const eventRef = await addDoc(collection(db, "events"), {
       eventTitle: title,
       location: eventLocation,
       startDate: startDate,
@@ -51,17 +51,8 @@ const Confirmation = () => {
       },
     })
 
-    await setDoc(doc(db, "events", newHostEventRef.id), {
-      eventTitle: title,
-      location: eventLocation,
-      startDate: startDate,
-      endDate: endDate,
-      message: eventMessage,
-      questions: {
-          1: q1Enabled,
-          2: q2Enabled,
-          3: q3Enabled,
-      },
+    await updateDoc(doc(db, "hosts", hostEmail), {
+      events: arrayUnion(eventRef.id)
     })
 
     setShowShareModal(true)
