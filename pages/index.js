@@ -1,8 +1,40 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { Button } from 'flowbite-react'
+import { useState } from 'react'
+import LoginModal from '../components/LoginModal'
+import { db } from '../utils/firebase-config'
+import { doc, getDoc } from 'firebase/firestore'
+import Link from 'next/link'
+import Script from 'next/script'
 
 export default function Home() {
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [hostName, setHostName] = useState("")
+  const [hostEmail, setHostEmail] = useState("")
+
+  const onLoginClose = () => {
+    setShowLoginModal(false)
+  }
+
+  const onLoginSubmit = async (email) => {
+    const hostRef = doc(db, "hosts", email)
+    const hostSnap = await getDoc(hostRef)
+
+    if (hostSnap.exists()) {
+      setHostEmail(hostSnap.id)
+      setHostName(hostSnap.data().name)
+      setLoggedIn(true)
+      setShowLoginModal(false)
+    } else {
+      alert(
+        "Whoops! Looks like your not a host yet. Contact support to setup an account."
+      )
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,44 +44,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2eVG5g0fw57MqQ7hgVoqEAs9yED1j1Mg&libraries=places" async defer />
+        <Script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button" async defer />
+        { hostName.length > 0 ? <p className="mb-5">{`Welcome, ${hostName}! Let's create a new event.`}</p> : <></>}
+        {loggedIn ? <Button><Link href={{pathname: '/create-event'}}>Create New Event</Link></Button> : <Button onClick={() => { setShowLoginModal(true) }}>Login to Superhost</Button>}
+        <LoginModal showModal={showLoginModal} onModalClose={onLoginClose} onLoginSubmit={onLoginSubmit} />
       </main>
 
       <footer className={styles.footer}>
