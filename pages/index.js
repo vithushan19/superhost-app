@@ -47,7 +47,7 @@ export default function Home() {
         <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2eVG5g0fw57MqQ7hgVoqEAs9yED1j1Mg&libraries=places" async defer />
         <Script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button" async defer />
         { hostName.length > 0 ? <p className="mb-5">{`Welcome, ${hostName}! Let's create a new event.`}</p> : <></>}
-        {loggedIn ? <Button><Link href={{pathname: '/create-event'}}>Create New Event</Link></Button> : <Button onClick={() => { setShowLoginModal(true) }}>Login to Superhost</Button>}
+        {loggedIn ? <Button><Link href={{ pathname: '/create-event', query: { email: hostEmail } }}>Create New Event</Link></Button> : <Button onClick={() => { setShowLoginModal(true) }}>Login to Superhost</Button>}
         <LoginModal showModal={showLoginModal} onModalClose={onLoginClose} onLoginSubmit={onLoginSubmit} />
       </main>
 
