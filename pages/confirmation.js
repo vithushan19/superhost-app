@@ -32,6 +32,7 @@ const Confirmation = () => {
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
   const [showShareSpinner, setShowShareSpinner] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
+  const [eventId, setEventId] = useState("")
   
   const dateDetails = `${startDate} - ${endDate}`
     
@@ -58,6 +59,7 @@ const Confirmation = () => {
 
     setShowShareModal(true)
     setShowLoadingSpinner(false)
+    setEventId(eventRef.id)
   }
 
   const onSharePress = async (event) => {
@@ -69,13 +71,14 @@ const Confirmation = () => {
       navigator.share({
         title: title,
         text: 'Your invited!',
-        url: 'https://app.superhost.com/events/1234'
+        url: `https://app.usesuperhost.com/events/${eventId}`
       }).then(() => {
         setShowShareSpinner(false)
         console.log("Successful Share!")
       }).catch((error) => {
         setShowShareSpinner(false)
         console.log('Error sharing', error)
+        alert("Please try again later on a mobile device.")
       })
     }
   }
