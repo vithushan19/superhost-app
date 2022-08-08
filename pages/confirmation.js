@@ -30,6 +30,7 @@ const Confirmation = () => {
   } = router.query
     
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
+  const [showShareSpinner, setShowShareSpinner] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
   
   const dateDetails = `${startDate} - ${endDate}`
@@ -60,24 +61,28 @@ const Confirmation = () => {
   }
 
   const onSharePress = async (event) => {
-      event.preventDefault()
+    event.preventDefault()
+    
+    setShowShareSpinner(true)
   
-      if (navigator.share) {
-          navigator.share({
-              title: title,
-              text: 'Your invited!',
-              url: 'https://app.superhost.com/events/1234'
-          }).then(() => {
-              console.log("Successful Share!")
-          }).catch((error) => {
-              console.log('Error sharing', error)
-          })
-      }
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: 'Your invited!',
+            url: 'https://app.superhost.com/events/1234'
+        }).then(() => {
+            console.log("Successful Share!")
+        }).catch((error) => {
+            console.log('Error sharing', error)
+        })
+    }
+
+    setShowShareSpinner(false)
   }
     
   return (
     <>
-      <ShareModal showModal={showShareModal} setShowModal={setShowShareModal} onSharePress={onSharePress} />
+      <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
       <div className="flex flex-col justify-center items-center h-screen w-full bg-black" style={{ padding: "0 1rem" }}>
         <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
