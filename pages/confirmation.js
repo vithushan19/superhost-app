@@ -66,18 +66,18 @@ const Confirmation = () => {
     setShowShareSpinner(true)
   
     if (navigator.share) {
-        navigator.share({
-            title: title,
-            text: 'Your invited!',
-            url: 'https://app.superhost.com/events/1234'
-        }).then(() => {
-            console.log("Successful Share!")
-        }).catch((error) => {
-            console.log('Error sharing', error)
-        })
+      navigator.share({
+        title: title,
+        text: 'Your invited!',
+        url: 'https://app.superhost.com/events/1234'
+      }).then(() => {
+        setShowShareSpinner(false)
+        console.log("Successful Share!")
+      }).catch((error) => {
+        setShowShareSpinner(false)
+        console.log('Error sharing', error)
+      })
     }
-
-    setShowShareSpinner(false)
   }
     
   return (
