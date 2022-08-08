@@ -3,6 +3,7 @@ import { addDoc, collection } from "firebase/firestore"
 import { Label, Radio, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import SuccessRSVPModal from "../components/SuccessRSVPModal"
 import { db } from "../utils/firebase-config"
 
 const EventRSVP = () => {
@@ -21,14 +22,16 @@ const EventRSVP = () => {
     const [answer3, setAnswer3] = useState("")
 
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
+    const [showRSVPModal, setShowRSVPModal] = useState(false)
 
     const convertToRSVPStatus = () => {
+        console.log("RSVP Status", status)
         switch (status) {
-            case 0:
+            case '0':
                 return "Attending"
-            case 1:
+            case '1':
                 return "Maybe"
-            case 2:
+            case '2':
                 return "Declined"
         }
     }
@@ -48,10 +51,12 @@ const EventRSVP = () => {
         })
 
         setShowLoadingSpinner(false)
+        setShowRSVPModal(true)
     }
 
     return (
-        <div className="flex flex-col py-5 bg-stone-50">
+        <div className="flex flex-col py-5 bg-stone-50 h-screen">
+            <SuccessRSVPModal showModal={showRSVPModal} eventID={eventID} />
             <button type='submit' className="flex text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-5 mb-2 self-end bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800" form='rsvpform'>
                 <MailIcon className="mr-2 h-5 w-5"/>
                 { showLoadingSpinner ? "Loading..." : "Submit RSVP"}
@@ -96,7 +101,7 @@ const EventRSVP = () => {
                         required
                     />
                 </div>
-                {(questionsMap.get("1") === "true" && (status == 0)) ? <div className="mb-2 block px-2.5">
+                {(questionsMap.get("1") === "true" && (status !== "2")) ? <div className="mb-2 block px-2.5">
                 <Label
                     htmlFor="question1"
                         value="Will you be drinking at this event?"
@@ -108,7 +113,7 @@ const EventRSVP = () => {
                     color="warning"
                 />
                 </div> : <></>}
-            { (questionsMap.get("2") === "true" && (status == 0)) ? <div className="mb-7 block px-2.5">
+            { (questionsMap.get("2") === "true" && (status !== "2")) ? <div className="mb-7 block px-2.5">
                 <Label
                     htmlFor="question2"
                     value="Will you be bringing a +1?"
@@ -120,7 +125,7 @@ const EventRSVP = () => {
                 />
                 </div> : <></>}
             {
-                (questionsMap.get("3") === "true" && (status == 0)) ? <div className="mb-2 block px-2.5">
+                (questionsMap.get("3") === "true" && (status !== "2")) ? <div className="mb-2 block px-2.5">
                 <Label
                     htmlFor="comment"
                     value="Let us know of any food restrictions."
