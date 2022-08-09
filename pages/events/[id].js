@@ -28,7 +28,7 @@ const Event = ({ eventID = null, event = null}) => {
     })
   }
 
-  if (router.isFallback) {
+  if (router.isFallback && event !== null && eventID !== null) {
     return <div>Loading...</div>
   } else {
     return (
