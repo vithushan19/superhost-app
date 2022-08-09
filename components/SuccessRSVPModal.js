@@ -1,4 +1,3 @@
-import { XIcon } from "@heroicons/react/outline"
 import Image from "next/image"
 import Link from "next/link"
 import rsvpSuccess from "../public/rsvpSuccess.png"

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Head from 'next/head'
 
 import { atcb_action } from 'add-to-calendar-button'
@@ -38,7 +37,6 @@ const Event = ({ eventID, event }) => {
           <title>{event.eventTitle}</title>
           <meta name="description" content={event.location} />
           <link rel="icon" href={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
           <meta property="og:image" content={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} key="ogimage" />
           <meta property="og:site_name" content="Superhost" key="ogsitename" />

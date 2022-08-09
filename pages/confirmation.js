@@ -1,14 +1,12 @@
-import { Button, Modal, Spinner } from "flowbite-react"
 import {
   ClockIcon,
   LocationMarkerIcon,
   PencilAltIcon,
   SparklesIcon,
-  XIcon,
 } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import { db } from "../utils/firebase-config"
-import { doc, collection, addDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
+import { doc, collection, addDoc, updateDoc, arrayUnion } from "firebase/firestore"
 import { useState } from "react"
 import ShareModal from "../components/ShareModal"
 import CardDetails from "../components/CardDetails"
@@ -84,9 +82,8 @@ const Confirmation = () => {
   }
     
   return (
-    <>
-      <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-      <div className="flex flex-col justify-center items-center h-screen w-full bg-black" style={{ padding: "0 1rem" }}>
+    <div className="flex flex-col justify-center items-center h-screen w-full bg-black" style={{ padding: "0 1rem" }}>
+        <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
         <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
             <p className="text-stone-100 text-2xl text-center font-dancingScript tracking-wide pt-5">
@@ -127,7 +124,6 @@ const Confirmation = () => {
           </button>
         </div>
       </div>
-    </>
   )
 }
 
