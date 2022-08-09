@@ -37,7 +37,7 @@ const Event = ({ eventID, event }) => {
 
         <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
         <meta property="og:image" content={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} key="ogimage" />
-        <meta property="og:site_name" content={"Superhost"} key="ogsitename" />
+        <meta property="og:site_name" content="Superhost" key="ogsitename" />
         <meta property="og:title" content={event.eventTitle} key="ogtitle" />
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
