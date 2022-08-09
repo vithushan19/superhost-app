@@ -29,7 +29,7 @@ const Event = ({ eventID = null, event = null}) => {
   }
 
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return (<div>Loading...</div>)
   } else {
     return (
       <div className="flex flex-col justify-center items-center h-full w-full bg-black" style={{ padding: "0 1rem" }}>
@@ -104,7 +104,7 @@ const Event = ({ eventID = null, event = null}) => {
       </div>
     )
   }
-  }
+}
 
 export async function getStaticPaths() {
   const querySnapshot = await getDocs(collection(db, "events"))
