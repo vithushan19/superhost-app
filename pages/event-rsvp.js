@@ -24,18 +24,6 @@ const EventRSVP = () => {
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
     const [showRSVPModal, setShowRSVPModal] = useState(false)
 
-    const convertToRSVPStatus = () => {
-        console.log("RSVP Status", status)
-        switch (status) {
-            case '0':
-                return "Attending"
-            case '1':
-                return "Maybe"
-            case '2':
-                return "Declined"
-        }
-    }
-
     const onRSVPSubmit = async (event) => {
         event.preventDefault()
 
@@ -45,9 +33,9 @@ const EventRSVP = () => {
             guestName: name,
             rsvpStatus: convertToRSVPStatus(),
             phoneNumber: phoneNumber,
-            a1: (questionsMap.get("1") === "true") ? answer1 : null,
-            a2: (questionsMap.get("2") === "true") ? answer2 : null,
-            a3: (questionsMap.get("3") === "true") ? answer3 : null
+            a1: answer1,
+            a2: answer2,
+            a3: answer3
         })
 
         setShowLoadingSpinner(false)
