@@ -9,25 +9,19 @@ import { format } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const Event = ({ eventID, event }) => {
+const Event = ({ eventID = null, event = null}) => {
   const router = useRouter()
-  const eventTitle = event.eventTitle ?? null
-  const startDate = event.startDate ?? null
-  const endDate = event.endDate ?? null
-  const eventLocation = event.location ?? null
-  const eventMessage = event.message ?? null
-
-  const dateDetails = `${startDate} - ${endDate}`
+  const dateDetails = `${event.startDate} - ${event.endDate}`
 
   const addToCalendarPress = () => {
     atcb_action({
       name: `${event.eventTitle}`,
-      startDate: format(new Date(startDate), 'yyyy-MM-dd').toString(),
-      startTime: format(new Date(startDate), 'hh:mm').toString(),
-      endDate: format(new Date(endDate), 'yyyy-MM-dd').toString(),
-      endTime: format(new Date(endDate), 'hh:mm').toString(),
+      startDate: format(new Date(event.startDate), 'yyyy-MM-dd').toString(),
+      startTime: format(new Date(event.startDate), 'hh:mm').toString(),
+      endDate: format(new Date(event.endDate), 'yyyy-MM-dd').toString(),
+      endTime: format(new Date(event.endDate), 'hh:mm').toString(),
       options: ['Apple', 'Google', 'Outlook.com'],
-      location: `${eventLocation}`,
+      location: `${event.location}`,
       timeZone: 'Europe/Berlin',
       trigger: 'click',
       iCalFileName: 'Reminder-Event',
@@ -40,14 +34,14 @@ const Event = ({ eventID, event }) => {
     return (
       <div className="flex flex-col justify-center items-center h-full w-full bg-black" style={{ padding: "0 1rem" }}>
         <Head>
-          <title>{eventTitle}</title>
-          <meta name="description" content={eventLocation} />
+          <title>{event.eventTitle}</title>
+          <meta name="description" content={event.location} />
           <link rel="icon" href={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} />
           <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
           <meta property="og:image" content={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} key="ogimage" />
           <meta property="og:site_name" content="Superhost" key="ogsitename" />
-          <meta property="og:title" content={eventTitle} key="ogtitle" />
-          <meta property="og:description" content={eventLocation} key="ogdesc" />
+          <meta property="og:title" content={event.eventTitle} key="ogtitle" />
+          <meta property="og:description" content={event.location} key="ogdesc" />
         </Head>
         <div className="flex flex-col justify-center items-center h-screen w-full bg-black">
           <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
@@ -56,12 +50,12 @@ const Event = ({ eventID, event }) => {
                 {"You're invited to"}
               </p>
               <p className="text-stone-100 font-bold text-xl mt-5 uppercase text-center">
-                {eventTitle}
+                {event.eventTitle}
               </p>
             </div>
             <div className="flex flex-col items-stretch pb-5 gap-2 bg-gradient-to-t from-black-900 to-transparent">
               <div className="backdrop-blur-sm my-5">
-                <p className="text-white text-left">{eventMessage}</p>
+                <p className="text-white text-left">{event.message}</p>
               </div>
               <CardDetails
                 text={dateDetails}
@@ -70,7 +64,7 @@ const Event = ({ eventID, event }) => {
               <CardDetails
                 text={
                   <p>
-                    <u>{eventLocation}</u>
+                    <u>{event.location}</u>
                   </p>
                 }
                 icon={
