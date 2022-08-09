@@ -31,11 +31,11 @@ const EventRSVP = () => {
 
         const guestResponseRef = await addDoc(collection(db, `/events/${eventID}/guests`), {
             guestName: name,
-            rsvpStatus: convertToRSVPStatus(),
+            rsvpStatus: status,
             phoneNumber: phoneNumber,
-            a1: answer1,
-            a2: answer2,
-            a3: answer3
+            a1: (questionsMap.get("1") === "true") ? answer1 : null,
+            a2: (questionsMap.get("2") === "true") ? answer2 : null,
+            a3: (questionsMap.get("3") === "true") ? answer3 : null
         })
 
         setShowLoadingSpinner(false)
