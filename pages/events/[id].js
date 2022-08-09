@@ -123,7 +123,8 @@ export async function getStaticProps(context) {
   const eventSnap = await getDoc(eventRef)
 
   return {
-    props: { eventID, event: eventSnap.exists() ? eventSnap.data() : {} }
+    props: { eventID, event: eventSnap.exists() ? eventSnap.data() : {} },
+    revalidate: 1,
   }
 }
   
