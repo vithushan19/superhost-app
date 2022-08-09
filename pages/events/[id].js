@@ -28,7 +28,7 @@ const Event = ({ eventID = null, event = null}) => {
     })
   }
 
-  if (router.isFallback && event !== null && eventID !== null) {
+  if (router.isFallback) {
     return <div>Loading...</div>
   } else {
     return (
@@ -123,8 +123,7 @@ export async function getStaticProps(context) {
   const eventSnap = await getDoc(eventRef)
 
   return {
-    props: { eventID, event: eventSnap.exists() ? eventSnap.data() : {} },
-    revalidate: 1
+    props: { eventID, event: eventSnap.exists() ? eventSnap.data() : {} }
   }
 }
   
