@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Head from 'next/head'
-import styles from '../../styles/Home.module.css'
 
 import { atcb_action } from 'add-to-calendar-button'
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
@@ -29,12 +28,12 @@ const Event = ({ eventID, event }) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full bg-black" style={{ padding: "0 1rem" }}>
+    <div className="flex flex-col justify-center items-center h-full w-full bg-black" style={{ padding: "0 1rem" }}>
       <Head>
         <title>{event.eventTitle}</title>
         <meta name="description" content={event.location} />
         <link rel="icon" href={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
         <meta property="og:image" content={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} key="ogimage" />
         <meta property="og:site_name" content="Superhost" key="ogsitename" />
@@ -42,7 +41,7 @@ const Event = ({ eventID, event }) => {
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
       <div className="flex flex-col justify-center items-center h-screen w-full bg-black">
-        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
+        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
             <p className="text-stone-100 text-2xl text-center font-dancingScript tracking-wide pt-5">
               {"You're invited to"}
@@ -90,7 +89,7 @@ const Event = ({ eventID, event }) => {
           </Link>
         </div>
       </div>
-      <footer className="text-white border-t w-full mt-2 border-white py-4 text-center">
+      <footer className="text-white border-t w-full mt-2 mb-4 border-white py-4 text-center">
         <a
           href="https://usesuperhost.com"
           target="_blank"
