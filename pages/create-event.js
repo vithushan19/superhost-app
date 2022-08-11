@@ -6,7 +6,6 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import { FileInput, Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
-import Head from "next/head"
 
 const DateTimePicker = ({ date, setDate }) => {
     return (

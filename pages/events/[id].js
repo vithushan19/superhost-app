@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import { atcb_action } from 'add-to-calendar-button'
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../utils/firebase-config'
 import CardDetails from '../../components/CardDetails'
 import { CalendarIcon, ClockIcon, LocationMarkerIcon, SparklesIcon } from '@heroicons/react/outline'
@@ -10,7 +10,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const Event = ({ eventID, event}) => {
-  const router = useRouter()
   const dateDetails = `${event.startDate} - ${event.endDate}`
 
   const addToCalendarPress = () => {
