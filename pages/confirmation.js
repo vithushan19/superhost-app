@@ -20,7 +20,7 @@ const Confirmation = () => {
       eventLocation,
       startDate,
       endDate,
-      image,
+      imageURL,
       eventMessage,
       q1Enabled,
       q2Enabled,
@@ -33,7 +33,7 @@ const Confirmation = () => {
   const [eventId, setEventId] = useState("")
   
   const dateDetails = `${startDate} - ${endDate}`
-    
+
   const onCreateEvent = async (event) => {
     event.preventDefault()
     setShowLoadingSpinner(true)
@@ -80,11 +80,12 @@ const Confirmation = () => {
       })
     }
   }
-    
+
   return (
     <div className="flex flex-col justify-center items-center h-screen w-full bg-black" style={{ padding: "0 1rem" }}>
-        <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
+      <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
+        <div>{`Image URL: ${imageURL}`}</div>
+        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("${imageURL}")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
             <p className="text-stone-100 text-2xl text-center font-dancingScript tracking-wide pt-5">
               {"You're invited to"}
