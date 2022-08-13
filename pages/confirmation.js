@@ -66,19 +66,7 @@ const Confirmation = () => {
   const onMakeChanges = (event) => {
     event.preventDefault()
 
-    router.push({
-      pathname: '/create-event',
-      query: {
-        title,
-        eventLocation,
-        startDate,
-        endDate,
-        eventMessage,
-        q1Enabled,
-        q2Enabled,
-        q3Enabled
-      },
-    })
+    router.back()
   }
 
   const onSharePress = async (event) => {

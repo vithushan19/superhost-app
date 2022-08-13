@@ -31,7 +31,7 @@ const PlacesAutocomplete = ({ setLocation, location }) => {
     
   return (
     <Combobox onSelect={handleSelect} aria-labelledby="demo">
-      <ComboboxInput className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={location ?? value} placeholder="Casa Loma, Toronto, ON, Canada" onChange={handleInput} disabled={!ready} />
+      <ComboboxInput className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={location ?? value} placeholder="Casa Loma, Toronto, ON, Canada" onChange={handleInput} disabled={!ready} required />
       <ComboboxPopover>
         <ComboboxList>
           {status === "OK" &&
