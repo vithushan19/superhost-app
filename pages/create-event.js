@@ -141,7 +141,6 @@ const CreateEvent = () => {
           <Textarea
             id="comment"
             placeholder="Please join us for lunch afterwards at noon!"
-            required={true}
             rows={4}
             value={eventMessage}
             onChange={(event) => { setEventMessage(event.target.value) }}
