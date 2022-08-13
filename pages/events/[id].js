@@ -42,10 +42,10 @@ const Event = ({ eventID, event}) => {
       <div className="flex flex-col justify-center items-center h-screen w-full bg-black">
         <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("${event.imageURL}")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
-            <p className="text-stone-100 text-2xl text-center font-dancingScript tracking-wide pt-5">
+            <p className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-300 text-3xl text-center font-extrabold font-dancingScript tracking-wide pt-5">
               {"You're invited to"}
             </p>
-            <p className="text-stone-100 font-bold text-xl mt-5 uppercase text-center">
+            <p className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent font-bold text-2xl mt-5 uppercase text-center">
               {event.eventTitle}
             </p>
           </div>
