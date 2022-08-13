@@ -33,15 +33,15 @@ const CreateEvent = () => {
   const router = useRouter()
 
   const hostEmail = router.query.email
-  const [title, setTitle] = useState("")
-  const [eventLocation, setEventLocation] = useState("")
-  const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
-  const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
+  const [title, setTitle] = useState(router.query.title ?? "")
+  const [eventLocation, setEventLocation] = useState(router.query.eventLocation ?? "")
+  const [startDate, setStartDate] = useState(setHours(router.query.startDate ?? setMinutes(new Date(), 30), 18))
+  const [endDate, setEndDate] = useState(setHours(router.query.endDate ?? setMinutes(new Date(), 30), 21))
   const [image, setImage] = useState(null)
-  const [eventMessage, setEventMessage] = useState("")
-  const [q1Enabled, setQ1Enabled] = useState(false)
-  const [q2Enabled, setQ2Enabled] = useState(false)
-  const [q3Enabled, setQ3Enabled] = useState(false)
+  const [eventMessage, setEventMessage] = useState(router.query.eventMessage ?? "")
+  const [q1Enabled, setQ1Enabled] = useState(router.query.q1Enabled ?? false)
+  const [q2Enabled, setQ2Enabled] = useState(router.query.q2Enabeld ?? false)
+  const [q3Enabled, setQ3Enabled] = useState(router.query.q3Enabled ?? false)
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
 
