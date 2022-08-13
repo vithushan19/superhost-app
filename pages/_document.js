@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 
 class MyDocument extends Document {
   render() {
@@ -13,6 +14,9 @@ class MyDocument extends Document {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button/assets/css/atcb.min.css" />
         </Head>
         <body>
+          <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2eVG5g0fw57MqQ7hgVoqEAs9yED1j1Mg&libraries=places" async defer />
+          <Script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button" async defer />
+        
           <Main />
           <NextScript />
         </body>
