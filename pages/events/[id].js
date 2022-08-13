@@ -7,7 +7,7 @@ import CardDetails from '../../components/CardDetails'
 import { CalendarIcon, ClockIcon, LocationMarkerIcon, SparklesIcon } from '@heroicons/react/outline'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import LocationCardDetails from '../../components/LocationCardDetails'
 
 const Event = ({ eventID, event}) => {
   const dateDetails = `${event.startDate} - ${event.endDate}`
@@ -57,12 +57,8 @@ const Event = ({ eventID, event}) => {
               text={dateDetails}
               icon={<ClockIcon className="mr-1 h-5 w-5 text-stone-900" />}
             />
-            <CardDetails
-              text={
-                <p>
-                  <u>{event.location}</u>
-                </p>
-              }
+            <LocationCardDetails
+              text={event.location}
               icon={
                 <LocationMarkerIcon className="mr-1 h-5 w-5 text-stone-900" />
               }

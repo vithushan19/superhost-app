@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { Button, Card } from 'flowbite-react'
 import { useState } from 'react'
 import LoginModal from '../components/LoginModal'
 import { db } from '../utils/firebase-config'
@@ -11,8 +10,8 @@ import Script from 'next/script'
 
 export default function Home() {
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
-  const [hostName, setHostName] = useState("")
   const [hostEmail, setHostEmail] = useState("")
   const [events, setEvents] = useState([])
 
@@ -21,6 +20,8 @@ export default function Home() {
   }
 
   const onLoginSubmit = async (email) => {
+    setShowLoadingSpinner(true)
+
     const hostRef = doc(db, "hosts", email)
     const hostSnap = await getDoc(hostRef)
     const eventsData = []
@@ -34,7 +35,6 @@ export default function Home() {
       }
 
       setHostEmail(hostSnap.id)
-      setHostName(hostSnap.data().name)
       setEvents(eventsData)
 
       setShowLoginModal(false)
@@ -44,6 +44,8 @@ export default function Home() {
         "Whoops! Looks like your not a host yet. Contact support to setup an account."
       )
     }
+
+    setShowLoadingSpinner(false)
   }
 
   return (
@@ -70,7 +72,7 @@ export default function Home() {
           </a>)
           })}
         </div>}
-        <LoginModal showModal={showLoginModal} onModalClose={onLoginClose} onLoginSubmit={onLoginSubmit} />
+        <LoginModal showModal={showLoginModal} showLoadingSpinner={showLoadingSpinner} onModalClose={onLoginClose} onLoginSubmit={onLoginSubmit} />
       </main>
 
       <footer className={styles.footer}>
