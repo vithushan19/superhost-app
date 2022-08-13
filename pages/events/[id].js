@@ -40,7 +40,7 @@ const Event = ({ eventID, event}) => {
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
       <div className="flex flex-col justify-center items-center h-screen w-full bg-black">
-        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("https://ik.imagekit.io/ikmedia/women-dress-2.jpg")` }}>
+        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("${event.imageURL}")` }}>
           <div className="bg-gradient-to-b from-black to-transparent">
             <p className="text-stone-100 text-2xl text-center font-dancingScript tracking-wide pt-5">
               {"You're invited to"}

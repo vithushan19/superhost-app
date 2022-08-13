@@ -49,6 +49,7 @@ const Confirmation = () => {
           2: (q2Enabled === "true"),
           3: (q3Enabled === "true"),
       },
+      imageURL: imageURL
     })
 
     await updateDoc(doc(db, "hosts", hostEmail), {
