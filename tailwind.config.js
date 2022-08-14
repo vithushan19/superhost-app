@@ -10,7 +10,8 @@ module.exports = {
       fontFamily: {
         'dancingScript': ['Dancing Script', 'sans-serif'],
         'cinzel': ['Cinzel', 'serif'],
-        'montserrat': ['Montserrat', 'sans-serif']
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'playfairDisplay': ['Playfair Display', 'serif']
       }
     },
   },

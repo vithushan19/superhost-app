@@ -3,15 +3,12 @@ import Head from 'next/head'
 import { atcb_action } from 'add-to-calendar-button'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../utils/firebase-config'
-import CardDetails from '../../components/CardDetails'
-import { CalendarIcon, ClockIcon, LocationMarkerIcon, SparklesIcon } from '@heroicons/react/outline'
+import { CalendarIcon, SparklesIcon } from '@heroicons/react/outline'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import LocationCardDetails from '../../components/LocationCardDetails'
+import InvitationCard from '../../components/InvitationCard'
 
 const Event = ({ eventID, event}) => {
-  const dateDetails = `${event.startDate} - ${event.endDate}`
-
   const addToCalendarPress = () => {
     atcb_action({
       name: `${event.eventTitle}`,
@@ -27,8 +24,30 @@ const Event = ({ eventID, event}) => {
     })
   }
 
+  const AddToCalendarButton = () => (
+    <button type="button" onClick={addToCalendarPress} className="justify-center flex text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full">
+        <CalendarIcon className='text-black h-5 w-5 mr-2'/>
+        Add to Calendar
+    </button>
+  )
+
+  const RSVPToEventButton = () => (
+    <Link href={{
+      pathname: '/event-rsvp/',
+      query: {
+        id: eventID,
+        questionData: JSON.stringify(event.questions)
+      }
+    }}>
+      <button type="button" className="justify-center flex text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 w-full">
+        <SparklesIcon className='text-white h-5 w-5 mr-2' />
+        RSVP to Event
+      </button>
+    </Link>
+  )
+
   return (
-    <div className="flex flex-col justify-center items-center h-full w-full bg-black" style={{ padding: "0 1rem" }}>
+    <>
       <Head>
         <title>{event.eventTitle}</title>
         <meta name="description" content={event.location} />
@@ -39,52 +58,10 @@ const Event = ({ eventID, event}) => {
         <meta property="og:title" content={event.eventTitle} key="ogtitle" />
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
-      <div className="flex flex-col justify-center items-center h-screen w-full bg-black">
-        <div className="flex flex-col justify-between bg-contain bg-center bg-no-repeat h-full w-full" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("${event.imageURL}")` }}>
-          <div className="bg-gradient-to-b from-black to-transparent">
-            <p className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-300 text-3xl text-center font-extrabold font-dancingScript tracking-wide pt-5">
-              {"You're invited to"}
-            </p>
-            <p className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent font-bold text-2xl mt-5 uppercase text-center">
-              {event.eventTitle}
-            </p>
-          </div>
-          <div className="flex flex-col items-stretch pb-5 gap-2 bg-gradient-to-t from-black-900 to-transparent">
-            <div className="backdrop-blur-sm my-5">
-              <p className="text-white text-left">{event.message}</p>
-            </div>
-            <CardDetails
-              text={dateDetails}
-              icon={<ClockIcon className="mr-1 h-5 w-5 text-stone-900" />}
-            />
-            <LocationCardDetails
-              text={event.location}
-              icon={
-                <LocationMarkerIcon className="mr-1 h-5 w-5 text-stone-900" />
-              }
-            />
-          </div>
-        </div>
-        <div className="self-center flex flex-col w-96">
-          <button type="button" onClick={addToCalendarPress} className="justify-center flex text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-3 mb-2">
-            <CalendarIcon className='text-black h-5 w-5 mr-2'/>
-            Add to Calendar
-          </button>
-          <Link href={{
-            pathname: '/event-rsvp/',
-            query: {
-              id: eventID,
-              questionData: JSON.stringify(event.questions)
-            }
-          }}>
-            <button type="button" className="justify-center flex text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-3 mb-2">
-              <SparklesIcon className='text-white h-5 w-5 mr-2' />
-              RSVP to Event
-            </button>
-          </Link>
-        </div>
+      <div className="flex flex-col justify-between h-screen w-full" style={{ padding: "0 1rem", backgroundImage: "radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%)", backgroundBlendMode: "screen" }}>
+        <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<AddToCalendarButton />} secondaryButton={<RSVPToEventButton />} />
       </div>
-      <footer className="text-white border-t w-full mt-2 mb-4 border-white py-4 text-center">
+      <footer className="border-t w-full border-black py-4 text-center" style={{ backgroundImage: "radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%)"}}>
         <a
           href="https://usesuperhost.com"
           target="_blank"
@@ -93,7 +70,7 @@ const Event = ({ eventID, event}) => {
           Powered by <b>SUPERHOST</b>
         </a>
       </footer>
-    </div>
+    </>
   )
 }
 
