@@ -52,6 +52,7 @@ const Event = ({ eventID, event}) => {
         <title>{event.eventTitle}</title>
         <meta name="description" content={event.location} />
         <link rel="icon" href={"https://ik.imagekit.io/ikmedia/women-dress-2.jpg"} />
+        <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
         <meta property="og:image" content={event.imageURL} key="ogimage" />
         <meta property="og:site_name" content="Superhost" key="ogsitename" />
