@@ -11,7 +11,7 @@ const InvitationCard = ({ title, imageURL, message, location, startDate, endDate
 
     return (
         <>
-            <div className='flex flex-col'>
+            <div className='flex flex-col mb-2'>
                 <p className="text-transparent bg-clip-text bg-gradient-to-l from-gray-700 via-gray-900 to-black text-2xl text-center font-extrabold font-dancingScript tracking-wide pt-5">
                     {"You're invited to"}
                 </p>
