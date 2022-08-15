@@ -15,7 +15,7 @@ const EventRSVP = () => {
 
     const [name, setName] = useState("")
     const [status, setStatus] = useState("Attending")
-    const [phoneNumber, setPhoneNumber] = useState("")
+    const [mandatoryField, setMandatoryField] = useState((eventID == "JN7W8Bd4oh1edLB8Dzrz") ? "Attending" : "")
 
     const [answer1, setAnswer1] = useState(false)
     const [answer2, setAnswer2] = useState(false)
@@ -24,13 +24,17 @@ const EventRSVP = () => {
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
+    const displayCustomQuestions = () => {
+        return (eventID == "JN7W8Bd4oh1edLB8Dzrz")
+    }
+
     const onRSVPSubmit = async (event) => {
         event.preventDefault()
 
         setShowLoadingSpinner(true)
 
-        await setDoc(doc(db, `/events/${eventID}/guests`, phoneNumber), {
-            guestName: name,
+        await setDoc(doc(db, `/events/${eventID}/guests`, name), {
+            mandatoryField: mandatoryField,
             rsvpStatus: status,
             a1: questionsMap.get("1") ? answer1 : null,
             a2: questionsMap.get("2") ? answer2 : null,
@@ -71,31 +75,57 @@ const EventRSVP = () => {
                         onChange={(event) => { setName(event.target.value) }}
                     />
                 </div>
-                <div className="mb-2 block px-2.5">
+                {
+                    displayCustomQuestions() ? <div className="mb-2 block px-2.5">
                     <Label
-                            htmlFor="status"
-                            value="Attending?"
-                        />
+                        htmlFor="status"
+                        value="Attending BP?"
+                    />
                     <select id="status" required value={status} onChange={(event) => { setStatus(event.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="Attending">{"I'll be there!"}</option>
+                        <option value="Yes">{"I'll be there!"}</option>
                         <option value="Maybe">{"Not sure yet."}</option>
-                        <option value="Declined">{"I can't make it."}</option>
+                        <option value="No">{"I can't make it."}</option>
                     </select>
-                </div>
-                <div className="mb-2 block px-2.5">
+                </div> :
+                        <div className="mb-2 block px-2.5">
+                            <Label
+                                htmlFor="status"
+                                value="Attending?"
+                            />
+                            <select id="status" required value={status} onChange={(event) => { setStatus(event.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="Attending">{"I'll be there!"}</option>
+                                <option value="Maybe">{"Not sure yet."}</option>
+                                <option value="Declined">{"I can't make it."}</option>
+                            </select>
+                        </div>
+                }
+                {
+                    displayCustomQuestions() ? <div className="mb-2 block px-2.5">
                     <Label
-                        htmlFor="phonenumber"
-                        value="Phone #"
+                        htmlFor="status"
+                        value="Attending Miliken Park?"
                     />
-                    <TextInput
-                        id="phonenumber"
-                        type="tel"
-                        placeholder="416-345-6578"
-                        value={phoneNumber}
-                        onChange={(event) => { setPhoneNumber(event.target.value) }}
-                        required
-                    />
+                    <select id="mandatoryField" required value={mandatoryField} onChange={(event) => { setMandatoryField(event.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="Yes">{"I'll be there!"}</option>
+                        <option value="Maybe">{"Not sure yet."}</option>
+                        <option value="No">{"I can't make it."}</option>
+                    </select>
+                </div> :
+                        <div className="mb-2 block px-2.5">
+                            <Label
+                                htmlFor="phonenumber"
+                                value="Phone #"
+                            />
+                            <TextInput
+                                id="phonenumber"
+                                type="tel"
+                                placeholder="416-345-6578"
+                                value={mandatoryField}
+                                required
+                                onChange={(event) => { setMandatoryField(event.target.value) }}
+                            />
                 </div>
+                }
                 {(questionsMap.get("1") && (status !== "Declined")) ? <div className="mb-2 block px-2.5">
                 <Label
                     htmlFor="question1"
