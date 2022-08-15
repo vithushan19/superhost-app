@@ -51,13 +51,11 @@ const Event = ({ eventID, event}) => {
       <Head>
         <title>{event.eventTitle}</title>
         <meta name="description" content={event.location} />
-        <link rel="icon" href={event.imageURL} />
+        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/vithushan-superhost-preview.jpg?alt=media&token=21ec4d84-212c-4215-91dd-f05da5ffec27" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
-        <meta property="og:image" content={event.imageURL} key="ogimage" />
+        <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/vithushan-superhost-preview.jpg?alt=media&token=21ec4d84-212c-4215-91dd-f05da5ffec27" key="ogimage" />
         <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:width" content="250" />
-        <meta property="og:height" content="250" />
         <meta property="og:site_name" content="Superhost" key="ogsitename" />
         <meta property="og:title" content={event.eventTitle} key="ogtitle" />
         <meta property="og:description" content={event.location} key="ogdesc" />
