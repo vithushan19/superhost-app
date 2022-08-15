@@ -47,7 +47,7 @@ const Event = ({ eventID, event}) => {
   )
 
   const previewImageLink = () => {
-    if (eventID === "RHITIGBpv1zKGev2EeXF") {
+    if (eventID == "RHITIGBpv1zKGev2EeXF") {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/demo-image-resized.jpg?alt=media&token=78e09337-3851-43cf-9a33-98d46b743ef1"
     } else {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/vithushan-superhost-preview.jpg?alt=media&token=21ec4d84-212c-4215-91dd-f05da5ffec27"
