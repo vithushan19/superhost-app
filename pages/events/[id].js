@@ -52,6 +52,7 @@ const Event = ({ eventID, event}) => {
         <title>{event.eventTitle}</title>
         <meta name="description" content={event.location} />
         <link rel="icon" href={event.imageURL} />
+        <meta property="og:title" content="Superhost" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://app.usesuperhost.com/events/${eventID}`} key="ogurl" />
         <meta property="og:image" content={event.imageURL} key="ogimage" />
