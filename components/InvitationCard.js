@@ -19,7 +19,7 @@ const InvitationCard = ({ title, imageURL, message, location, startDate, endDate
                     {title}
                 </p>
             </div>
-            <Image loader={imageLoader} src={imageURL} height={300} width='100%' alt="" className="object-scale-down" />
+            <Image loader={imageLoader} src={imageURL} height={400} width='100%' alt="" className="object-scale-down" />
             <div className="flex flex-col items-stretch pb-5">
                 <div className="backdrop-blur-sm my-5">
                     <p className="text-slate-700 text-left">{message}</p>
