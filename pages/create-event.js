@@ -9,7 +9,6 @@ import { v4 } from "uuid"
 import "react-datepicker/dist/react-datepicker.css"
 import { Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
-import Script from "next/script"
 
 const DateTimePicker = ({ date, setDate }) => {
     return (
@@ -83,7 +82,7 @@ const CreateEvent = () => {
 
   return (
     <>
-    <div className="flex flex-col py-5 bg-stone-200">
+      <div className="flex flex-col py-5 bg-stone-200">
       {
         showLoadingSpinner ?
           <button disabled type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center self-end">
