@@ -8,17 +8,17 @@ import { format } from 'date-fns'
 import Link from 'next/link'
 import InvitationCard from '../../components/InvitationCard'
 
-const Event = ({ eventID, event}) => {
+const Event = ({ eventID, event }) => {
   const addToCalendarPress = () => {
     atcb_action({
       name: `${event.eventTitle}`,
       startDate: format(new Date(event.startDate), 'yyyy-MM-dd').toString(),
-      startTime: format(new Date(event.startDate), 'hh:mm').toString(),
+      startTime: format(new Date(event.startDate), 'HH:mm').toString(),
       endDate: format(new Date(event.endDate), 'yyyy-MM-dd').toString(),
-      endTime: format(new Date(event.endDate), 'hh:mm').toString(),
+      endTime: format(new Date(event.endDate), 'HH:mm').toString(),
       options: ['Apple', 'Google', 'Outlook.com'],
       location: `${event.location}`,
-      timeZone: 'Europe/Berlin',
+      timeZone: 'America/Toronto',
       trigger: 'click',
       iCalFileName: 'Reminder-Event',
     })
