@@ -72,6 +72,7 @@ export default function Home() {
           </a>)
           })}
         </div>}
+        { events.length === 0 && <div className='mt-10'>No events to display.</div>}
         <LoginModal showModal={showLoginModal} showLoadingSpinner={showLoadingSpinner} onModalClose={onLoginClose} onLoginSubmit={onLoginSubmit} />
       </main>
 

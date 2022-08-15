@@ -14,7 +14,7 @@ const EventRSVP = () => {
     const questionsMap = new Map(Object.entries(questions))
 
     const [name, setName] = useState("")
-    const [status, setStatus] = useState("")
+    const [status, setStatus] = useState("Attending")
     const [phoneNumber, setPhoneNumber] = useState("")
 
     const [answer1, setAnswer1] = useState(false)
