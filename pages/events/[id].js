@@ -54,7 +54,7 @@ const Event = ({ eventID, event }) => {
     } else if (eventID == "bXOQJLwmedP9PsfotNhJ") {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/vithushan-superhost-preview.jpg?alt=media&token=21ec4d84-212c-4215-91dd-f05da5ffec27"
     } else {
-      return "../../public/favicon.ico"
+      return "/favicon.ico"
     }
   }
 
