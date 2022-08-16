@@ -51,8 +51,10 @@ const Event = ({ eventID, event }) => {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/demo-image-resized.jpg?alt=media&token=78e09337-3851-43cf-9a33-98d46b743ef1"
     } else if (eventID == "JN7W8Bd4oh1edLB8Dzrz") {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/thanoozan-bday-pic-resized.jpg?alt=media&token=961cac7a-cb7f-478e-ab0a-780ba0242aff"
-    } else {
+    } else if (eventID == "bXOQJLwmedP9PsfotNhJ") {
       return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/vithushan-superhost-preview.jpg?alt=media&token=21ec4d84-212c-4215-91dd-f05da5ffec27"
+    } else {
+      return "https://firebasestorage.googleapis.com/v0/b/social-calendar-352120.appspot.com/o/default-preview-pic.jpg?alt=media&token=187326d8-c3fb-4ba9-b129-057dbe6cd54d"
     }
   }
 
