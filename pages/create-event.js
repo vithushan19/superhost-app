@@ -7,8 +7,9 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
 
 import "react-datepicker/dist/react-datepicker.css"
-import { Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
+import { Checkbox, Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
+import { QUESTIONS_DATA } from "../utils/questions-data"
 
 const DateTimePicker = ({ date, setDate }) => {
     return (
@@ -20,15 +21,6 @@ const DateTimePicker = ({ date, setDate }) => {
       />)
 }
   
-const ToggleQuestion = ({ title, value, onToggleChange }) => {
-    return (
-        <ToggleSwitch
-            checked={value}
-            label={title}
-            onChange={() => { onToggleChange(!value) }}
-        />)
-}
-
 const CreateEvent = () => {
   const router = useRouter()
 
@@ -38,10 +30,9 @@ const CreateEvent = () => {
   const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
   const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
   const [image, setImage] = useState(null)
-  const [eventMessage, setEventMessage] = useState( "")
-  const [q1Enabled, setQ1Enabled] = useState(false)
-  const [q2Enabled, setQ2Enabled] = useState(false)
-  const [q3Enabled, setQ3Enabled] = useState(false)
+  const [eventMessage, setEventMessage] = useState("")
+  const [savedQuestions, setSavedQuestions] = useState([])
+  const [shouldCollectNumbers, setShouldCollectNumbers] = useState(false)
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
 
@@ -61,6 +52,7 @@ const CreateEvent = () => {
 
     const snapshot = await uploadBytes(imageRef, image)
     const imageURL = await getDownloadURL(snapshot.ref)
+
     router.push({
       pathname: '/confirmation',
       query: {
@@ -71,13 +63,26 @@ const CreateEvent = () => {
         endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
         imageURL,
         eventMessage,
-        q1Enabled,
-        q2Enabled,
-        q3Enabled
+        savedQuestions,
+        shouldCollectNumbers
       }
     })
 
     setShowLoadingSpinner(false)
+  }
+
+  const updateSavedQuestions = (id, checked) => {
+    if (checked) {
+      setSavedQuestions([...savedQuestions, id])
+    } else {
+      const savedQuestionsArray = [...savedQuestions]
+      const index = savedQuestionsArray.indexOf(id)
+
+      if (index !== -1) {
+        savedQuestionsArray.splice(index, 1)
+        setSavedQuestions(savedQuestionsArray)
+      }
+    }
   }
 
   return (
@@ -150,15 +155,34 @@ const CreateEvent = () => {
             value={eventMessage}
             onChange={(event) => { setEventMessage(event.target.value) }}
           />
-        </div>
-        <div className="flex flex-col gap-4 text-left">
-          <div className='mb-2 block'>
-            <Label value="Enable the questions you'd like to ask guests." />
           </div>
-          <ToggleQuestion title="Will you be drinking at this event?" value={q1Enabled} onToggleChange={() => { setQ1Enabled(!q1Enabled) }} />
-          <ToggleQuestion title="Will you be bringing a +1?" value={q2Enabled} onToggleChange={() => { setQ2Enabled(!q2Enabled) }} />
-          <ToggleQuestion title="Let us know of any food restrictions." value={q3Enabled} onToggleChange={() => { setQ3Enabled(!q3Enabled) }} />
-        </div>
+          <div className="flex flex-col gap-4 text-left">
+            <div className='mb-2 block'>
+            <Label value="Enable the questions you'd like to ask guests." />
+            </div>
+            {
+              QUESTIONS_DATA.map((question) => {
+                return <ToggleSwitch
+                  key={question.id}
+                  label={question.title}
+                  checked={savedQuestions.find(id => id === question.id) ?? false}
+                  onChange={(checked) => { updateSavedQuestions(question.id, checked) }} />
+              })
+            }
+          </div>
+          <div className="flex flex-col my-5">
+            <div className="flex items-start gap-2">
+              <Checkbox
+                id="accept"
+                defaultChecked={true}
+                value={shouldCollectNumbers}
+                onChange={(event) => setShouldCollectNumbers(!shouldCollectNumbers) }
+              />
+              <Label htmlFor="accept" className="text-blue-600 hover:underline dark:text-blue-500">
+                {"Collect phone numbers to send updates & reminders to guests."}
+              </Label>
+            </div>
+          </div>
       </form>
       </div>
       </>
