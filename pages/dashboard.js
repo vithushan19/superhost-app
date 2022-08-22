@@ -30,13 +30,18 @@ const Dashboard = () => {
     return (
         <div className='px-3 bg-gray-800'>
             <main className="flex flex-col items-center py-6 h-screen">
-                <div className="self-end">
+                <div className='w-full flex justify-between'>
                     <Button color="dark" size="sm" pill={true} onClick={() => router.back()}>
                         <Link href="/">
                             Logout
-                            </Link>
+                        </Link>
                     </Button>
-                    </div>
+                    <Button gradientDuoTone='cyanToBlue'>
+                        <Link href={`/create-event/${encodeURIComponent(hostEmail)}`}>
+                            Create Event
+                        </Link>
+                    </Button>
+                </div>
                 <div className='w-full my-5'>
                     <div className='my-5 text-sm font-semibold text-white'>Select an event to view the guest count.</div>
                     <ListGroup>

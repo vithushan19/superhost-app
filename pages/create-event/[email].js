@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { format, setHours, setMinutes } from 'date-fns'
-import PlacesAutocomplete from '../components/PlacesAutocomplete'
+import PlacesAutocomplete from '../../components/PlacesAutocomplete'
 import DatePicker from 'react-datepicker'
-import { storage } from "../utils/firebase-config"
+import { storage } from "../../utils/firebase-config"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
 
 import "react-datepicker/dist/react-datepicker.css"
 import { Checkbox, Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
-import { QUESTIONS_DATA } from "../utils/questions-data"
+import { QUESTIONS_DATA } from "../../utils/questions-data"
 
 const DateTimePicker = ({ date, setDate }) => {
     return (
@@ -87,7 +87,7 @@ const CreateEvent = () => {
 
   return (
     <>
-      <div className="flex flex-col py-5 bg-stone-200">
+      <div className="flex flex-col py-5 bg-gray-900">
       {
         showLoadingSpinner ?
           <button disabled type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center self-end">
