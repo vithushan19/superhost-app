@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore"
-import { Card, Table } from "flowbite-react"
+import { Button, Card, Table } from "flowbite-react"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { db } from "../../utils/firebase-config"
@@ -73,30 +74,33 @@ const GuestList = () => {
     }, [eventId])
 
     return (
-        <div className="py-8 px-0">
+        <div className="px-4 py-0 bg-gray-900">
             <main className="flex flex-col items-stretch px-2 py-6 h-screen gap-3">
-                <Card className="text-lg flex flex-col gap-3">
-                    <h6 className="text-center text-lg font-bold text-slate-700">Guest Responses</h6>
+                <Button color="dark" pill={true} onClick={() => router.back()} size='sm'>
+                    Go Back
+                </Button>
+                <Card className="text-lg flex flex-col gap-1.5">
+                    <h6 className="text-center text-lg font-bold text-white">Guest Responses</h6>
                     {Array.from(countMap.keys()).map((key, id) => {
                         if (key === "0") {
                             const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                             return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-slate-700">Attending Event: </p><p>{attendingCount.value}</p></div>
+                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Event: </p><p className="text-blue-600">{attendingCount.value}</p></div>
                             )
                         } else if (key === "1") {
                             const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                             return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-slate-700">Attending Pregame: </p><p>{attendingCount.value}</p></div>
+                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Pregame: </p><p className="text-blue-600">{attendingCount.value}</p></div>
                             )
                         } else if (key === "2") {
                             const attendingCount = countMap.get(key).find(element => element.name === "true")
                             return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-slate-700">Bringing a +1: </p><p>{attendingCount.value}</p></div>
+                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Bringing a +1: </p><p className="text-blue-600">{attendingCount.value}</p></div>
                             )
                         } else if (key === "3") {
                             const drinkingCount = countMap.get(key).find(element => element.name === "true")
                             return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-slate-700">Will be drinking: </p><p>{drinkingCount.value}</p></div>
+                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Will be drinking: </p><p className="text-blue-600">{drinkingCount.value}</p></div>
                             )
                         }
                     })}
@@ -143,7 +147,13 @@ const GuestList = () => {
                         })
                     }
                 </Table.Body>
-            </Table>
+                </Table>
+                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <Link
+                        href={`/share-event/${encodeURIComponent(eventId)}`}>
+                        View Event Page
+                    </Link>
+                </button>
             </main>
         </div>
     )

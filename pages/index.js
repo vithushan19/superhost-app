@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className="py-0 px-8 bg-gray-800">
       <Head>
         <title>Superhost</title>
         <meta name="description" content="Effortless Event Planning." />
