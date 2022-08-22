@@ -13,16 +13,15 @@ const Confirmation = () => {
   const router = useRouter()
 
   const {
-      hostEmail,
-      title,
-      eventLocation,
-      startDate,
-      endDate,
-      imageURL,
-      eventMessage,
-      q1Enabled,
-      q2Enabled,
-      q3Enabled,
+    hostEmail,
+    title,
+    eventLocation,
+    startDate,
+    endDate,
+    imageURL,
+    eventMessage,
+    savedQuestions,
+    shouldCollectNumbers
   } = router.query
     
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
@@ -35,16 +34,14 @@ const Confirmation = () => {
     setShowLoadingSpinner(true)
 
     const eventRef = await addDoc(collection(db, "events"), {
+      host: hostEmail,
       eventTitle: title,
       location: eventLocation,
       startDate: startDate,
       endDate: endDate,
       message: eventMessage,
-      questions: {
-          1: (q1Enabled === "true"),
-          2: (q2Enabled === "true"),
-          3: (q3Enabled === "true"),
-      },
+      questions: savedQuestions.map(questionId => parseInt(questionId)),
+      shouldCollectNumbers: (shouldCollectNumbers === 'true'),
       imageURL: imageURL
     })
 
