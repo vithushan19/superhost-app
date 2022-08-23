@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { Button, ListGroup } from 'flowbite-react'
+import { Button } from 'flowbite-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -44,21 +44,23 @@ const Dashboard = () => {
                 </div>
                 <div className='w-full my-5'>
                     <div className='my-5 text-sm font-semibold text-white'>Select an event to view the guest count.</div>
-                    <ListGroup>
+                    <ul className="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         {
                             events.map(event => {
                                 const location = event.data.location
 
-                                return (<ListGroup.Item key={event.id} href={`/guestlist/${encodeURIComponent(event.id)}`}>
-                                    <div className='flex flex-col text-left gap-2'>
-                                        <p>{event.data.eventTitle}</p>
-                                        <p className="text-xs text-blue-500">{location.substring(0, location.indexOf(','))}</p>
-                                        <p className="text-xs text-blue-500">{`${event.data.startDate} - ${event.data.endDate}`}</p>
-                                    </div>
-                                </ListGroup.Item>)
+                                return (<li key={event.id} className="py-4 px-4 w-full border-b border-gray-200 dark:border-gray-600">
+                                    <Link href={`/share-event/${encodeURIComponent(event.id)}`}>
+                                        <div className='flex flex-col text-left gap-2'>
+                                            <p>{event.data.eventTitle}</p>
+                                            <p className="text-xs text-blue-500">{location.substring(0, location.indexOf(','))}</p>
+                                            <p className="text-xs text-blue-500">{`${event.data.startDate} - ${event.data.endDate}`}</p>
+                                        </div>
+                                    </Link>
+                                </li>)
                             })
                         }
-                    </ListGroup>
+                    </ul>
                 </div>
             </main>
         </div>
