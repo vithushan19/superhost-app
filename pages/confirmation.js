@@ -103,10 +103,10 @@ const Confirmation = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between h-screen w-full" style={{ padding: "0 1rem", backgroundImage: "radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%)", backgroundBlendMode: "screen" }}>
+    <>
       <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
       <InvitationCard title={title} imageURL={imageURL} message={eventMessage} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<MakeChangesButton/>} secondaryButton={<CreateEventButton/>} />
-    </div>
+    </>
   )
 }
 
