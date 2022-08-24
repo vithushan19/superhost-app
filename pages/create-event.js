@@ -30,9 +30,9 @@ const CreateEvent = () => {
   const [eventLocation, setEventLocation] = useState(formState.eventLocation ?? "")
   const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
   const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
-  const [image, setImage] = useState(JSON.parse(formState.imageData ?? "{}") ?? null)
+  const [image, setImage] = useState(null)
   const [eventMessage, setEventMessage] = useState(formState.eventMessage ?? "")
-  const [savedQuestions, setSavedQuestions] = useState(formState.savedQuestions ?? [])
+  const [savedQuestions, setSavedQuestions] = useState(JSON.parse(formState.savedQuestions ?? "[]"))
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
 
@@ -61,10 +61,9 @@ const CreateEvent = () => {
         eventLocation,
         startDate: format(startDate, "MMM dd, yyyy hh:mm aa"),
         endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
-        imageData: JSON.stringify(image),
         imageURL,
         eventMessage,
-        savedQuestions
+        savedQuestions: JSON.stringify(savedQuestions)
       }
     })
 

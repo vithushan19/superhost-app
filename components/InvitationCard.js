@@ -12,7 +12,7 @@ const InvitationCard = ({ title, imageURL, message, location, startDate, endDate
                     <p className="text-gray-200 text-2xl text-center font-extrabold font-dancingScript tracking-wide mt-10">
                         {"You're invited to"}
                     </p>
-                    <p className="text-gray-200 font-bold text-3xl mt-2 uppercase text-center font-playfairDisplay">
+                    <p className="text-gray-200 text-3xl mt-2 uppercase text-center font-playfairDisplay">
                         {title}
                     </p>
                 </div>

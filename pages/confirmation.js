@@ -66,7 +66,6 @@ const Confirmation = () => {
           eventLocation,
           startDate,
           endDate,
-          imageData,
           imageURL,
           eventMessage,
           savedQuestions,
@@ -96,7 +95,7 @@ const Confirmation = () => {
 
   const MakeChangesButton = () => (
     <button type="button" onClick={onMakeChanges} className="justify-center flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full">
-      <PencilAltIcon className='text-black h-5 w-5 mr-2'/>
+      <PencilAltIcon className='text-white h-5 w-5 mr-2'/>
       Make Changes
     </button>
   )

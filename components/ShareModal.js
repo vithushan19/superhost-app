@@ -6,7 +6,7 @@ const ShareModal = ({ showModal, showSpinner, setShowModal, onSharePress }) => {
     return (
         <div id="defaultModal" tabIndex="-1" className={`${ showModal ? "" : "hidden"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full`}>
             <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative bg-white rounded-lg shadow">
                     <div className="flex flex-col p-5">
                     <XIcon className="h-7 w-7 self-end" onClick={() => { setShowModal(false) }} />
                     <Image src={celebrationImage} alt="celebration" />

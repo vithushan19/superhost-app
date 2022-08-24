@@ -108,16 +108,6 @@ const EventRSVP = () => {
                                                 <option value="Declined">{"I can't make it."}</option>
                                         </select>
                                     }
-                                    {
-                                        (question.type === 'text') &&
-                                        <Textarea
-                                            id={`question + ${question.id}`}
-                                            required={true}
-                                            rows={4}
-                                            value={answers.get(question.id) ?? ""}
-                                            onChange={(event) => { updateAnswers(question.id, event.target.value) }}
-                                        />
-                                    }
                                 </div>
                             }
                         })
