@@ -57,7 +57,7 @@ const ShareEvent = () => {
             setLoading(false)
           }).catch((error) => {
             setLoading(false)
-            alert("Please try again later on a mobile device.")
+            alert("Please try again later on a mobile device.", error)
           })
         }
     }

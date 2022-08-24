@@ -73,75 +73,84 @@ const GuestList = () => {
 
     return (
         <div className="px-4 py-0 bg-gray-900">
-            <main className="flex flex-col items-stretch px-2 py-6 h-screen gap-3">
+            <main className="flex flex-col items-stretch justify-between px-2 py-6 h-screen gap-3">
                 <Button color="dark" pill={true} onClick={() => router.back()} size='sm'>
                     Go Back
                 </Button>
-                <Card className="text-lg flex flex-col gap-1.5">
-                    <h6 className="text-center text-lg font-bold text-white">Guest Responses</h6>
-                    {Array.from(countMap.keys()).map((key, id) => {
-                        if (key === "0") {
-                            const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
-                            return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Event: </p><p className="text-blue-600">{attendingCount.value}</p></div>
-                            )
-                        } else if (key === "1") {
-                            const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
-                            return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Pregame: </p><p className="text-blue-600">{attendingCount.value}</p></div>
-                            )
-                        } else if (key === "2") {
-                            const attendingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
-                            return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Bringing a +1: </p><p className="text-blue-600">{attendingCount.value}</p></div>
-                            )
-                        } else if (key === "3") {
-                            const drinkingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
-                            return (
-                                <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Will be drinking: </p><p className="text-blue-600">{drinkingCount.value}</p></div>
-                            )
-                        }
-                    })}
-                </Card>
-            <Table className="text-xs">
-                <Table.Head>
-                    <Table.HeadCell>
-                        Name
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        RSVP Status
-                    </Table.HeadCell>
-                    {
-                        QUESTIONS_DATA.map((data, id) => {
-                            if (eventQuestions.indexOf(data.id) !== -1) {
-                                return <Table.HeadCell key={id}>
-                                    {data.columnName}
+                {
+                    guests.length > 0 &&
+                    <>
+                        <Card className="text-lg flex flex-col gap-1.5">
+                            <h6 className="text-center text-lg font-bold text-white">Guest Responses</h6>
+                            {Array.from(countMap.keys()).map((key, id) => {
+                                if (key === "0") {
+                                    const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
+                                    return (
+                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Event: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                    )
+                                } else if (key === "1") {
+                                    const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
+                                    return (
+                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Pregame: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                    )
+                                } else if (key === "2") {
+                                    const attendingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
+                                    return (
+                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Bringing a +1: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                    )
+                                } else if (key === "3") {
+                                    const drinkingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
+                                    return (
+                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Will be drinking: </p><p className="text-blue-600">{drinkingCount.value}</p></div>
+                                    )
+                                }
+                            })}
+                        </Card>
+                        <Table className="text-xs">
+                            <Table.Head>
+                                <Table.HeadCell>
+                                    Name
                                 </Table.HeadCell>
-                            }
-                        })
-                    }
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {
-                        guests.map((guest, id) => {
-                            return (
-                                <Table.Row key={id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        {guest.id}
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        {guest.data.rsvpStatus}
-                                    </Table.Cell>
-                                    {Object.values(guest.data.answers).map((response, id) => {
-                                        const answer = String(response)
-                                        return <Table.Cell key={id}>{answer}</Table.Cell>
-                                    })}
-                                </Table.Row>
-                            )
-                        })
-                    }
-                </Table.Body>
-                </Table>
+                                <Table.HeadCell>
+                                    RSVP Status
+                                </Table.HeadCell>
+                                {
+                                    QUESTIONS_DATA.map((data, id) => {
+                                        if (eventQuestions.indexOf(data.id) !== -1) {
+                                            return <Table.HeadCell key={id}>
+                                                {data.columnName}
+                                            </Table.HeadCell>
+                                        }
+                                    })
+                                }
+                            </Table.Head>
+                            <Table.Body className="divide-y">
+                                { guests.map((guest, id) => {
+                                        return (
+                                            <Table.Row key={id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                    {guest.id}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {guest.data.rsvpStatus}
+                                                </Table.Cell>
+                                                {Object.values(guest.data.answers).map((response, id) => {
+                                                    const answer = String(response)
+                                                    return <Table.Cell key={id}>{answer}</Table.Cell>
+                                                })}
+                                            </Table.Row>
+                                        )
+                                    })
+                                }
+                            </Table.Body>
+                        </Table>
+                    </>
+                }
+                {
+                    guests.length === 0 && <p className="text-blue-500 text-center my-10">
+                        No events to display yet!
+                    </p>
+                }
                 <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                     <Link
                         href={`/share-event/${encodeURIComponent(eventId)}`}>

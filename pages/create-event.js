@@ -63,7 +63,7 @@ const CreateEvent = () => {
         endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
         imageURL,
         eventMessage,
-        savedQuestions: JSON.stringify(savedQuestions)
+        savedQuestions
       }
     })
 
@@ -154,7 +154,7 @@ const CreateEvent = () => {
           </div>
           <div className="flex flex-col gap-4 text-left">
             <div className='mb-2 block'>
-            <Label value="Enable the questions you'd like to ask guests." />
+            <Label value="Enable relevant questions you'd like to ask guests." />
             </div>
             {
               QUESTIONS_DATA.map((question) => {

@@ -18,7 +18,6 @@ const Confirmation = () => {
     eventLocation,
     startDate,
     endDate,
-    imageData,
     imageURL,
     eventMessage,
     savedQuestions,
@@ -117,6 +116,7 @@ const Confirmation = () => {
 
   return (
     <>
+      <div>{ console.log(savedQuestions) }</div>
       <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
       <InvitationCard title={title} imageURL={imageURL} message={eventMessage} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<MakeChangesButton/>} secondaryButton={<CreateEventButton/>} />
     </>

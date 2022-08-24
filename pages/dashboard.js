@@ -60,7 +60,7 @@ const Dashboard = () => {
                                 const location = event.data.location
 
                                 return (<li key={event.id} className="py-4 px-4 w-full border-b border-gray-200 dark:border-gray-600">
-                                    <Link href={`/share-event/${encodeURIComponent(event.id)}`}>
+                                    <Link href={`/guestlist/${encodeURIComponent(event.id)}`}>
                                         <div className='flex flex-col text-left gap-2'>
                                             <p>{event.data.eventTitle}</p>
                                             <p className="text-xs text-blue-500">{location.substring(0, location.indexOf(','))}</p>
