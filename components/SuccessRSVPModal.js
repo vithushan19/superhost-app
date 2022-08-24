@@ -13,7 +13,7 @@ const SuccessRSVPModal = ({ showModal, eventID, event }) => {
             startTime: format(new Date(event.startDate), 'HH:mm').toString(),
             endDate: format(new Date(event.endDate), 'yyyy-MM-dd').toString(),
             endTime: format(new Date(event.endDate), 'HH:mm').toString(),
-            options: ['Apple', 'Google', 'Outlook.com'],
+            options: ['Apple', 'Google', 'iCal', 'Outlook.com'],
             location: `${event.location}`,
             timeZone: 'America/Toronto',
             trigger: 'click',
