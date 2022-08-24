@@ -147,7 +147,7 @@ const GuestList = () => {
                     </>
                 }
                 {
-                    guests.length === 0 && <p className="text-blue-500 text-center my-10">
+                    guests.length === 0 && <p className="text-blue-500 text-center">
                         No events to display yet!
                     </p>
                 }
