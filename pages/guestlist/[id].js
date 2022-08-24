@@ -10,7 +10,6 @@ const GuestList = () => {
     const router = useRouter()
     const eventId = router.query.id
     const [guests, setGuests] = useState([])
-    const [shouldDisplayPhoneNumbers, setShouldDisplayPhoneNumbers] = useState(false)
     const [eventQuestions, setEventQuestions] = useState([])
     const [countMap, setCountMap] = useState(new Map())
 
@@ -65,7 +64,6 @@ const GuestList = () => {
 
                 setGuests(guestData)
                 setEventQuestions(eventData.questions)
-                setShouldDisplayPhoneNumbers(eventData.shouldCollectNumbers)
                 setCountMap(answersCountData)
             }
         }
@@ -110,9 +108,6 @@ const GuestList = () => {
                     <Table.HeadCell>
                         Name
                     </Table.HeadCell>
-                    {
-                        shouldDisplayPhoneNumbers && <Table.HeadCell>Phone Number</Table.HeadCell>
-                    }
                     <Table.HeadCell>
                         RSVP Status
                     </Table.HeadCell>
@@ -134,7 +129,6 @@ const GuestList = () => {
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                         {guest.id}
                                     </Table.Cell>
-                                    {shouldDisplayPhoneNumbers && <Table.Cell>{guest.data.phoneNumber}</Table.Cell>}
                                     <Table.Cell>
                                         {guest.data.rsvpStatus}
                                     </Table.Cell>

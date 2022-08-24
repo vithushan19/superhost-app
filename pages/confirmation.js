@@ -18,10 +18,10 @@ const Confirmation = () => {
     eventLocation,
     startDate,
     endDate,
+    imageData,
     imageURL,
     eventMessage,
     savedQuestions,
-    shouldCollectNumbers
   } = router.query
     
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
@@ -41,7 +41,6 @@ const Confirmation = () => {
       endDate: endDate,
       message: eventMessage,
       questions: savedQuestions.map(questionId => parseInt(questionId)),
-      shouldCollectNumbers: (shouldCollectNumbers === 'true'),
       imageURL: imageURL
     })
 
@@ -57,8 +56,23 @@ const Confirmation = () => {
 
   const onMakeChanges = (event) => {
     event.preventDefault()
-
-    router.back()
+    
+    router.push({
+      pathname: '/create-event',
+      query: {
+        email: hostEmail,
+        formState: JSON.stringify({
+          title,
+          eventLocation,
+          startDate,
+          endDate,
+          imageData,
+          imageURL,
+          eventMessage,
+          savedQuestions,
+        })
+      }
+    })
   }
 
   const onSharePress = async (event) => {
@@ -81,7 +95,7 @@ const Confirmation = () => {
   }
 
   const MakeChangesButton = () => (
-    <button type="button" className="justify-center flex text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full" onClick={onMakeChanges}>
+    <button type="button" onClick={onMakeChanges} className="justify-center flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full">
       <PencilAltIcon className='text-black h-5 w-5 mr-2'/>
       Make Changes
     </button>

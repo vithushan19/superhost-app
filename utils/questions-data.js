@@ -17,10 +17,4 @@ export const QUESTIONS_DATA = [
         type: "boolean",
         columnName: "Is drinking?"
     },
-    {
-        id: 4,
-        title: "Do you have any food restrictions?",
-        type: "text",
-        columnName: "Food Restrictions"
-    },
 ]

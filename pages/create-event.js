@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { format, setHours, setMinutes } from 'date-fns'
-import PlacesAutocomplete from '../../components/PlacesAutocomplete'
+import PlacesAutocomplete from '../components/PlacesAutocomplete'
 import DatePicker from 'react-datepicker'
-import { storage } from "../../utils/firebase-config"
+import { storage } from "../utils/firebase-config"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
 
 import "react-datepicker/dist/react-datepicker.css"
 import { Checkbox, Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
-import { QUESTIONS_DATA } from "../../utils/questions-data"
+import { QUESTIONS_DATA } from "../utils/questions-data"
 
 const DateTimePicker = ({ date, setDate }) => {
     return (
@@ -23,16 +23,16 @@ const DateTimePicker = ({ date, setDate }) => {
   
 const CreateEvent = () => {
   const router = useRouter()
-
   const hostEmail = router.query.email
-  const [title, setTitle] = useState("")
-  const [eventLocation, setEventLocation] = useState("")
+  const formState = JSON.parse(router.query.formState ?? "{}")
+
+  const [title, setTitle] = useState(formState.title ?? "")
+  const [eventLocation, setEventLocation] = useState(formState.eventLocation ?? "")
   const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
   const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
-  const [image, setImage] = useState(null)
-  const [eventMessage, setEventMessage] = useState("")
-  const [savedQuestions, setSavedQuestions] = useState([])
-  const [shouldCollectNumbers, setShouldCollectNumbers] = useState(false)
+  const [image, setImage] = useState(JSON.parse(formState.imageData ?? "{}") ?? null)
+  const [eventMessage, setEventMessage] = useState(formState.eventMessage ?? "")
+  const [savedQuestions, setSavedQuestions] = useState(formState.savedQuestions ?? [])
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
 
@@ -61,10 +61,10 @@ const CreateEvent = () => {
         eventLocation,
         startDate: format(startDate, "MMM dd, yyyy hh:mm aa"),
         endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
+        imageData: JSON.stringify(image),
         imageURL,
         eventMessage,
-        savedQuestions,
-        shouldCollectNumbers
+        savedQuestions
       }
     })
 
@@ -166,19 +166,6 @@ const CreateEvent = () => {
                   onChange={(checked) => { updateSavedQuestions(question.id, checked) }} />
               })
             }
-          </div>
-          <div className="flex flex-col my-5">
-            <div className="flex items-start gap-2">
-              <Checkbox
-                id="accept"
-                defaultChecked={true}
-                value={shouldCollectNumbers}
-                onChange={(event) => setShouldCollectNumbers(!shouldCollectNumbers) }
-              />
-              <Label htmlFor="accept" className="text-blue-600 hover:underline dark:text-blue-500">
-                {"Collect phone numbers to send updates & reminders to guests."}
-              </Label>
-            </div>
           </div>
       </form>
       </div>

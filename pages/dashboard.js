@@ -10,6 +10,18 @@ const Dashboard = () => {
     const hostEmail = router.query.hostEmail ?? ""
     const [events, setEvents] = useState([])
 
+    const onCreateEvent = (event) => {
+        event.preventDefault()
+
+        router.push({
+            pathname: '/create-event',
+            query: {
+                email: hostEmail,
+                formState: "{}"
+            }
+        })
+    }
+
     useEffect(() => {
         const fetchFirestoreData = async () => {
             const eventData = []
@@ -36,10 +48,8 @@ const Dashboard = () => {
                             Logout
                         </Link>
                     </Button>
-                    <Button gradientDuoTone='cyanToBlue'>
-                        <Link href={`/create-event/${encodeURIComponent(hostEmail)}`}>
-                            Create Event
-                        </Link>
+                    <Button gradientDuoTone='cyanToBlue' onClick={onCreateEvent}>
+                        Create Event
                     </Button>
                 </div>
                 <div className='w-full my-5'>

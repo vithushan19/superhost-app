@@ -13,7 +13,6 @@ const EventRSVP = () => {
     const eventID = router.query.eventID
 
     const questionIds = event.questions ?? []
-    const shouldCollectNumbers = event.shouldCollectNumbers === 'true'
 
     const [name, setName] = useState("")
     const [status, setStatus] = useState("Attending")
@@ -21,7 +20,6 @@ const EventRSVP = () => {
 
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
     const [showModal, setShowModal] = useState(false)
-    const [phoneNumber, setPhoneNumber] = useState("")
 
     const updateAnswers = (questionId, newValue) => {
         setAnswers(new Map(answers.set(questionId, newValue)))
@@ -33,15 +31,10 @@ const EventRSVP = () => {
         setShowLoadingSpinner(true)
         let responseCollection = {}
 
-        responseCollection = shouldCollectNumbers ?
-            {
-                rsvpStatus: status,
-                answers: answers,
-                phoneNumber: phoneNumber
-            } : {
-                rsvpStatus: status,
-                answers: Object.fromEntries(answers)
-            }
+        responseCollection = {
+            rsvpStatus: status,
+            answers: Object.fromEntries(answers)
+        }
         
         await setDoc(doc(db, `/events/${eventID}/guests`, name), responseCollection)
 
@@ -128,23 +121,6 @@ const EventRSVP = () => {
                                 </div>
                             }
                         })
-                    }
-                    {
-                        shouldCollectNumbers &&
-                        <div className="mb-2 block px-2.5">
-                            <Label
-                                htmlFor="phonenumber"
-                                value="Phone #"
-                            />
-                            <TextInput
-                                id="phonenumber"
-                                type="tel"
-                                placeholder="416-345-6578"
-                                value={phoneNumber}
-                                required
-                                onChange={(event) => { setPhoneNumber(event.target.value) }}
-                            />
-                        </div>
                     }
                 </form>
             </div>
