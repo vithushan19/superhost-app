@@ -92,24 +92,24 @@ const GuestList = () => {
                             <h6 className="text-center text-lg font-bold text-white">Guest Responses</h6>
                             {Array.from(countMap.keys()).map((key, id) => {
                                 if (key === "0") {
-                                    const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
+                                    const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                                     return (
-                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Event: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                        <div key={id} className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Event: </p><p className="text-blue-600">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "1") {
-                                    const attendingCount = countMap.get(key).filter(element => element.name === "Attending").length ?? 0
+                                    const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                                     return (
-                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Pregame: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                        <div key={id} className="inline-flex gap-2"><p className="font-semibold text-gray-300">Attending Pregame: </p><p className="text-blue-600">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "2") {
-                                    const attendingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
+                                    const attendingCount = countMap.get(key).find(element => element.name === "true")
                                     return (
-                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Bringing a +1: </p><p className="text-blue-600">{attendingCount.value}</p></div>
+                                        <div key={id} className="inline-flex gap-2"><p className="font-semibold text-gray-300">Bringing a +1: </p><p className="text-blue-600">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "3") {
-                                    const drinkingCount = countMap.get(key).filter(element => element.name === "true").length ?? 0
+                                    const drinkingCount = countMap.get(key).find(element => element.name === "true")
                                     return (
-                                        <div className="inline-flex gap-2"><p className="font-semibold text-gray-300">Will be drinking: </p><p className="text-blue-600">{drinkingCount.value}</p></div>
+                                        <div key={id} className="inline-flex gap-2"><p className="font-semibold text-gray-300">Will be drinking: </p><p className="text-blue-600">{(drinkingCount !== undefined ? drinkingCount.value : 0 )}</p></div>
                                     )
                                 }
                             })}

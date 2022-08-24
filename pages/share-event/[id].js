@@ -50,7 +50,7 @@ const ShareEvent = () => {
       
         if (navigator.share) {
           navigator.share({
-            title: title,
+            title: event.eventTitle,
             text: 'Your invited!',
             url: `https://app.usesuperhost.com/events/${eventId}`
           }).then(() => {
