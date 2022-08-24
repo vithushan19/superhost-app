@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
           <meta name="description" content="Effortless Event Planning." />
           <title>Superhost</title>
-          <link rel="icon" type="image/x-icon" sizes="32x27" href="/images/favicon.ico" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/images/superhost-icon.png" />
         </Head>
         <Component {...pageProps} />
       </Flowbite>
