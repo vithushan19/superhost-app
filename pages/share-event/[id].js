@@ -65,15 +65,6 @@ const ShareEvent = () => {
     return (
         <>
           <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} />
-          <footer className="border-t w-full border-black py-4 text-center" style={{ backgroundImage: "radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%)"}}>
-            <a
-              href="https://usesuperhost.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by <b>SUPERHOST</b>
-            </a>
-          </footer>
         </>
     )
 }

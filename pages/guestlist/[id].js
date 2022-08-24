@@ -73,10 +73,18 @@ const GuestList = () => {
 
     return (
         <div className="px-4 py-0 bg-gray-900">
-            <main className="flex flex-col items-stretch justify-between px-2 py-6 h-screen gap-3">
-                <Button color="dark" pill={true} onClick={() => router.back()} size='sm'>
-                    Go Back
-                </Button>
+            <main className="flex flex-col items-stretch px-2 py-6 h-screen gap-3">
+                <div className="flex w-full items-center justify-between">
+                    <Button color="dark" pill={true} onClick={() => router.back()} size='sm'>
+                        Go Back
+                    </Button>
+                    <Button color="dark" pill={true} size='sm'>
+                        <Link
+                            href={`/share-event/${encodeURIComponent(eventId)}`}>
+                            View Event Page
+                        </Link>
+                    </Button>
+                </div>
                 {
                     guests.length > 0 &&
                     <>
@@ -147,16 +155,10 @@ const GuestList = () => {
                     </>
                 }
                 {
-                    guests.length === 0 && <p className="text-blue-500 text-center">
+                    guests.length === 0 && <p className="text-blue-500 text-center mt-10">
                         No events to display yet!
                     </p>
                 }
-                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    <Link
-                        href={`/share-event/${encodeURIComponent(eventId)}`}>
-                        View Event Page
-                    </Link>
-                </button>
             </main>
         </div>
     )
