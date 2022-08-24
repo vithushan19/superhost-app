@@ -54,7 +54,7 @@ const Dashboard = () => {
                 </div>
                 <div className='w-full my-5'>
                     <div className='my-5 text-sm font-semibold text-white'>Select an event to view the guest count.</div>
-                    <ul className="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    { events.length > 0 && <ul className="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         {
                             events.map(event => {
                                 const location = event.data.location
@@ -70,7 +70,10 @@ const Dashboard = () => {
                                 </li>)
                             })
                         }
-                    </ul>
+                    </ul>}
+                    {
+                        events.length === 0 && <p className='w-full text-center text-blue-500'>No events to display yet. Create your first event!</p>
+                    }
                 </div>
             </main>
         </div>
