@@ -45,7 +45,7 @@ export default function Home() {
       <Head>
         <meta name="description" content="Effortless Event Planning." />
         <title>Superhost</title>
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/superhost-icon.png" />
+        <link rel="icon" href="/superhost-icon.ico" />
       </Head>
       <main className="flex flex-col items-center justify-center h-screen gap-5">
         <h6 className='text-white text-2xl uppercase font-semibold'>Superhost App</h6>
