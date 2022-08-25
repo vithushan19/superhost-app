@@ -63,10 +63,7 @@ const EventRSVP = () => {
                 <form id="rsvpform" className='flex flex-col items-stretch justify-center gap-4 mx-3' onSubmit={onRSVPSubmit}>
                     <div className="mb-2 block px-2.5">
                         <div className="mb-3">
-                            <Label
-                                htmlFor="name"
-                                value="Your Name"
-                            />
+                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-300">Your Name</label>
                         </div>
                         <TextInput
                             id="name"
@@ -79,10 +76,7 @@ const EventRSVP = () => {
                     </div>
                     <div className="mb-2 block px-2.5">
                         <div className="mb-3">
-                        <Label
-                            htmlFor="status"
-                            value="Attending?"
-                            />
+                            <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-300">Attending?</label>
                         </div>
                         <select id="status" required value={status} onChange={(event) => { setStatus(event.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="Attending">{"I'll be there!"}</option>
@@ -95,7 +89,7 @@ const EventRSVP = () => {
                             if (questionIds.indexOf(question.id) !== -1) {
                                 return <div className="mb-2 block px-2.5" key={question.id}>
                                     <div className="mb-3">
-                                        <Label htmlFor={`question + ${question.id}`} value={question.title} />
+                                        <label htmlFor={`question + ${question.id}`} className="block mb-2 text-sm font-medium text-gray-300">{question.title}</label>
                                     </div>
                                     {
                                         (question.type === 'boolean') && <ToggleSwitch label={ (answers.get(question.id) == true) ? "Yes" : "No" } checked={ answers.get(question.id) ?? false } onChange={(checked) => { updateAnswers(question.id, checked) }}  />
