@@ -1,6 +1,6 @@
 import { MailIcon } from "@heroicons/react/outline"
 import { doc, setDoc } from "firebase/firestore"
-import { Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
+import { DarkThemeToggle, Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import SuccessRSVPModal from "../components/SuccessRSVPModal"
@@ -92,7 +92,8 @@ const EventRSVP = () => {
                                         <label htmlFor={`question + ${question.id}`} className="block mb-2 text-sm font-medium text-gray-300">{question.title}</label>
                                     </div>
                                     {
-                                        (question.type === 'boolean') && <ToggleSwitch label={ (answers.get(question.id) == true) ? "Yes" : "No" } checked={ answers.get(question.id) ?? false } onChange={(checked) => { updateAnswers(question.id, checked) }}  />
+                                        (question.type === 'boolean') &&
+                                        <ToggleSwitch label={(answers.get(question.id) == true) ? "Yes" : "No"} color='white' checked={answers.get(question.id) ?? false} onChange={(checked) => { updateAnswers(question.id, checked) }}><DarkThemeToggle/></ToggleSwitch>
                                     }
                                     {
                                         (question.type === 'rsvp') &&
