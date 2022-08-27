@@ -7,7 +7,7 @@ const InvitationCard = ({ title, imageURL, message, location, startDate, endDate
 
     return (
         <>
-            <div className="flex flex-col justify-between h-screen w-full bg-cover" style={{ backgroundImage: `url("${imageURL}")`, aspectRatio: '4/3' }}>
+            <div className="flex flex-col justify-between h-screen w-full" style={{ backgroundImage: `url("${imageURL}")`, aspectRatio: '4/3', backgroundSize: '375px, 812px' }}>
                 <div className='flex flex-col' style={{ background: 'linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5)' }}>
                     <p className="text-gray-200 text-2xl text-center font-extrabold font-dancingScript tracking-wide mt-10">
                         {"You're invited to"}
