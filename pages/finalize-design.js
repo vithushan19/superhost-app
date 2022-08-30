@@ -3,7 +3,13 @@ import { useEffect, useState } from "react"
 
 const PortraitImagePreview = ({ imageURL }) => (
     <div className="w-full flex justify-center">
-        <div className="w-full flex flex-col justify-center items-center py-28" style={{ height: '50vh', backgroundImage: `url("${(imageURL)}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div className="w-full flex flex-col justify-between items-center" style={{ height: '50vh', backgroundImage: `url("${(imageURL)}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+            <div className="h-1/6 w-full" style={{ background: 'linear-gradient(to top, transparent, rgba(0, 0, 0, 0.7)' }}>
+                <p className="text-gray-50 tracking-wide font-dancingScript text-4xl font-bold text-center pt-3">{"Event Title"}</p>
+            </div>
+            <div className="h-1/6 w-full pt-5" style={{ background: 'linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7)' }}>
+                <p className="text-gray-50 tracking-wide font-dancingScript text-xl font-semibold text-center">Your message will go here...</p>
+            </div>
         </div>
     </div>
 )
@@ -23,8 +29,8 @@ const LandscapeImagePreview = ({ imageURL, backgroundURL }) => (
 const CardDesignLayout = () => {
     const router = useRouter()
     const [listOfImages, setListOfImages] = useState([])
-    const [selectedBg, setSelectedBg] = useState(null)
-    const [isPortraitImage, setIsPortraitImage] = useState(false)
+    const [isPortraitImage, setIsPortraitImage] = useState(null)
+    const [selectedBg, setSelectedBg] = useState("")
 
     const {
         hostEmail,
@@ -71,15 +77,17 @@ const CardDesignLayout = () => {
         image.src = imageURL
 
         image.onload = () => {
-            const actualWidth = image.width
-            const actualHeight = image.height
+            const isPortrait = image.height > image.width
             
-            setIsPortraitImage(actualHeight > actualWidth)
-            setSelectedBg(isPortraitImage ? null : '1.jpg')
+            setIsPortraitImage(isPortrait)
+            
+            if (isPortrait == false) {
+                setSelectedBg("1.jpg")
+            }
         }
 
         setListOfImages(importAll(require.context('../public/backgrounds/', false, /\.(png|jpe?g|svg)$/)))
-    }, [imageURL, isPortraitImage])
+    }, [imageURL])
 
     return (
         <div className="flex flex-col px-7 pt-5 bg-gray-900">
