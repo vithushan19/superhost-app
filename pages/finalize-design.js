@@ -17,7 +17,7 @@ const PortraitImagePreview = ({ imageURL }) => (
 
 const LandscapeImagePreview = ({ imageURL, backgroundURL }) => (
     <div className="w-full flex justify-center">
-        <div className="w-full flex flex-col justify-between items-center py-20" style={{ height: '50vh', backgroundImage: `url("${`backgrounds/${ backgroundURL ?? '1.jpg' }`}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div className="w-full flex flex-col justify-between items-center py-14" style={{ height: '50vh', backgroundImage: `url("${`backgrounds/${ backgroundURL ?? '1.jpg' }`}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
             <p className="text-gray-900 tracking-wide font-dancingScript text-3xl font-bold">{"Event Title"}</p>
             <picture>
                 <img src={imageURL} alt="invitation image" className="px-2 rounded shadow-xl w-60" style={{ maxHeight: '45vh' }} />
@@ -86,11 +86,10 @@ const CardDesignLayout = () => {
             if (isPortrait == false) {
                 setSelectedBg("1.jpg")
             }
-
+            
+            setListOfImages(importAll(require.context('../public/backgrounds/', false, /\.(png|jpe?g|svg)$/)))
             setIsLoading(false)
         }
-
-        setListOfImages(importAll(require.context('../public/backgrounds/', false, /\.(png|jpe?g|svg)$/)))
     }, [imageURL])
 
     return (

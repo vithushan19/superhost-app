@@ -2,7 +2,7 @@ import { ClockIcon, LocationMarkerIcon } from "@heroicons/react/outline"
 import CardDetails from "./CardDetails"
 import LocationCardDetails from "./LocationCardDetails"
 
-const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails, primaryButton, secondaryButton}) => (
+const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails, primaryButton }) => (
     <>
         <div className="flex flex-col justify-between h-screen w-full" style={{ backgroundImage: `url("${imageURL}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat' }}>
             <div className='flex flex-col h-2/6' style={{ background: 'linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5)' }}>
@@ -15,7 +15,7 @@ const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails
             </div>
             <div className="flex flex-col items-stretch pb-5 px-2">
                 <div className="w-full border-stone-900 bg-stone-100 border-2 mb-5 pl-5 py-1 rounded shadow-lg inline-flex items-center">
-                    <p className="text-stone-900 font-bold text-left text-xl font-montserrat">{message}</p>
+                    <p className="text-stone-900 font-bold text-left text-lg font-montserrat">{message}</p>
                 </div>
                 <CardDetails
                     text={dateDetails}
@@ -27,8 +27,7 @@ const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails
                         <LocationMarkerIcon className="mr-1 h-5 w-5 text-slate-900" />
                     }
                 />
-                <div>{primaryButton}</div>
-                <div>{secondaryButton}</div>
+                <div className="my-5">{primaryButton}</div>
             </div>
         </div>
     </>
@@ -38,7 +37,8 @@ const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, 
     <>
         <div className="flex flex-col justify-between h-screen w-full" style={{ backgroundImage: `url("${`backgrounds/${background}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'left top', backgroundAttachment: 'fixed' }}>
             <div className='flex flex-col'>
-                <p className="text-slate-900 text-4xl text-center font-extrabold font-dancingScript tracking-wide mt-16">
+                {secondaryButton}
+                <p className="text-slate-900 text-4xl text-center font-extrabold font-dancingScript tracking-wide mt-10">
                     {"You're invited to"}
                 </p>
                 <p className="text-slate-900 text-4xl mt-5 uppercase text-center font-playfairDisplay">
@@ -50,7 +50,7 @@ const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, 
             </picture>
             <div className="flex flex-col shadow items-stretch px-2">
                 <div className="mt-5 mb-5 border-2 bg-stone-100 border-stone-900 w-full py-1 rounded shadow-lg">
-                    <p className="text-slate-900 text-xl font-semibold text-left font-montserrat px-2">{message}</p>
+                    <p className="text-slate-900 text-lg font-semibold text-left font-montserrat px-2">{message}</p>
                 </div>
                 <CardDetails
                     text={dateDetails}
@@ -62,8 +62,7 @@ const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, 
                         <LocationMarkerIcon className="mr-1 h-5 w-5 text-slate-900" />
                     }
                 />
-                <div>{primaryButton}</div>
-                <div>{secondaryButton}</div>
+                <div className="my-5">{primaryButton}</div>
             </div>
         </div>
     </>
