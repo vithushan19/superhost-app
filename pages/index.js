@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import LoginModal from '../components/LoginModal'
 import { db } from '../utils/firebase-config'

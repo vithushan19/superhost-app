@@ -1,6 +1,6 @@
 import { MailIcon } from "@heroicons/react/outline"
 import { doc, setDoc } from "firebase/firestore"
-import { Label, Textarea, TextInput, ToggleSwitch } from "flowbite-react"
+import { TextInput } from "flowbite-react"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import SuccessRSVPModal from "../components/SuccessRSVPModal"
