@@ -12,7 +12,7 @@ const EventRSVP = () => {
     const event = JSON.parse(router.query.event ?? "{}")
     const eventID = router.query.eventID
 
-    const questionIds = event.questions ?? []
+    const questionIds = (event.questions ?? []).map((question) => { return parseInt(question) })
 
     const [name, setName] = useState("")
     const [status, setStatus] = useState("Attending")
@@ -84,6 +84,8 @@ const EventRSVP = () => {
                             <option value="Declined">{"I can't make it."}</option>
                         </select>
                     </div>
+                    <div>{console.log(questionIds)}</div>
+    
                     {
                         QUESTIONS_DATA.map((question) => {
                             if (questionIds.indexOf(question.id) !== -1) {

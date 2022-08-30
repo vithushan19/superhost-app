@@ -64,7 +64,7 @@ const ShareEvent = () => {
 
     return (
         <>
-          <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} />
+            <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} background={event.cardBackground} />
         </>
     )
 }

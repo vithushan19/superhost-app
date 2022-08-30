@@ -38,7 +38,6 @@ const Event = ({ eventID, event }) => {
         <meta property="og:title" content={event.eventTitle} key="ogtitle" />
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
-      <div>{console.log(event.cardBackground)}</div>
       <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<RSVPToEventButton />} background={event.cardBackground} />
     </>
   )
