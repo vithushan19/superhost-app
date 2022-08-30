@@ -60,15 +60,14 @@ const Confirmation = () => {
     router.push({
       pathname: '/create-event',
       query: {
-        email: hostEmail,
-        formState: JSON.stringify({
+        hostEmail: hostEmail,
+        formData: JSON.stringify({
           title,
           eventLocation,
           startDate,
           endDate,
-          imageURL,
           eventMessage,
-          savedQuestions,
+          savedQuestions: savedQuestions,
         })
       }
     })
@@ -117,6 +116,7 @@ const Confirmation = () => {
 
   return (
     <>
+      <div>{ console.log(savedQuestions) }</div>
       <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
       <InvitationCard title={title} imageURL={imageURL} message={eventMessage} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<MakeChangesButton />} secondaryButton={<CreateEventButton />} background={selectedBg} />
     </>

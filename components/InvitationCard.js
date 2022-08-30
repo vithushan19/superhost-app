@@ -37,7 +37,7 @@ const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails
 
 const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, primaryButton, secondaryButton, background}) => (
     <>
-        <div className="flex flex-col justify-between h-screen w-full" style={{ backgroundImage: `url("${background}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'left top', backgroundAttachment: 'fixed' }}>
+        <div className="flex flex-col justify-between h-screen w-full" style={{ backgroundImage: `url("${`backgrounds/${background}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'left top', backgroundAttachment: 'fixed' }}>
             <div className='flex flex-col'>
                 <p className="text-slate-900 text-4xl text-center font-extrabold font-dancingScript tracking-wide mt-16">
                     {"You're invited to"}

@@ -16,8 +16,7 @@ const Dashboard = () => {
         router.push({
             pathname: '/create-event',
             query: {
-                email: hostEmail,
-                formState: "{}"
+                hostEmail
             }
         })
     }

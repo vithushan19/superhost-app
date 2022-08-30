@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { format, setHours, setMinutes } from 'date-fns'
+import { useEffect, useState } from "react"
+import { format, parse, setHours, setMinutes } from 'date-fns'
 import PlacesAutocomplete from '../components/PlacesAutocomplete'
 import DatePicker from 'react-datepicker'
 import { storage } from "../utils/firebase-config"
@@ -23,16 +23,15 @@ const DateTimePicker = ({ date, setDate }) => {
   
 const CreateEvent = () => {
   const router = useRouter()
-  const hostEmail = router.query.email
-  const formState = JSON.parse(router.query.formState ?? "{}")
+  const hostEmail = router.query.hostEmail
 
-  const [title, setTitle] = useState(formState.title ?? "")
-  const [eventLocation, setEventLocation] = useState(formState.eventLocation ?? "")
+  const [title, setTitle] = useState("")
+  const [eventLocation, setEventLocation] = useState("")
   const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
   const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
   const [image, setImage] = useState(null)
-  const [eventMessage, setEventMessage] = useState(formState.eventMessage ?? "")
-  const [savedQuestions, setSavedQuestions] = useState(JSON.parse(formState.savedQuestions ?? "[]"))
+  const [eventMessage, setEventMessage] = useState("")
+  const [savedQuestions, setSavedQuestions] = useState([])
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
 
@@ -83,6 +82,21 @@ const CreateEvent = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (router.query.formData !== undefined) {
+      const formData = JSON.parse(router.query.formData)
+      const savedQuestions = Array.isArray(formData.savedQuestions) ? formData.savedQuestions : new Array(formData.savedQuestions)
+      console.log(formData.savedQuestions)
+      setTitle(formData.title)
+      setEventLocation(formData.eventLocation)
+      setEventMessage(formData.eventMessage)
+      setSavedQuestions(savedQuestions.map((id) => { return parseInt(id) }))
+
+      setStartDate(Date.parse(formData.startDate))
+      setEndDate(Date.parse(formData.endDate))
+    }
+  }, [router.query])
 
   return (
     <>

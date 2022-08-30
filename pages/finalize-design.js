@@ -10,10 +10,12 @@ const PortraitImagePreview = ({ imageURL }) => (
 
 const LandscapeImagePreview = ({ imageURL, backgroundURL }) => (
     <div className="w-full flex justify-center">
-        <div className="w-full flex flex-col justify-center items-center py-28" style={{ height: '50vh', backgroundImage: `url("${(backgroundURL)}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div className="w-full flex flex-col justify-between items-center py-20" style={{ height: '50vh', backgroundImage: `url("${`backgrounds/${ backgroundURL ?? '1.jpg' }`}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+            <p className="text-gray-900 tracking-wide font-dancingScript text-3xl font-bold">{"Event Title"}</p>
             <picture>
                 <img src={imageURL} alt="invitation image" className="px-2 rounded shadow-xl w-60" style={{ maxHeight: '45vh' }} />
             </picture>
+            <p className="text-gray-900 tracking-wide font-dancingScript text-xl font-semibold">Your message will go here...</p>
         </div>
     </div>
 )
@@ -57,11 +59,11 @@ const CardDesignLayout = () => {
     const onBackgroundSelect = (event, image) => {
         event.preventDefault()
 
-        setSelectedBg(image.default.src)
+        setSelectedBg(image)
     }
 
     const importAll = (r) => {
-        return r.keys().map(r)
+        return r.keys().map((key) => { return key.replace('./', '') })
     }
 
     useEffect(() => {
@@ -73,10 +75,11 @@ const CardDesignLayout = () => {
             const actualHeight = image.height
             
             setIsPortraitImage(actualHeight > actualWidth)
+            setSelectedBg(isPortraitImage ? null : '1.jpg')
         }
 
         setListOfImages(importAll(require.context('../public/backgrounds/', false, /\.(png|jpe?g|svg)$/)))
-    }, [imageURL])
+    }, [imageURL, isPortraitImage])
 
     return (
         <div className="flex flex-col px-7 pt-5 bg-gray-900">
@@ -97,9 +100,9 @@ const CardDesignLayout = () => {
                                     return (
                                         <div key={index} className="flex flex-wrap w-1/3">
                                             <label htmlFor="backgroundPicCheckbox">
-                                                <div className={`w-full p-1 md:p-2 ${ (image.default.src === selectedBg) ? 'border-4 border-orange-700' : '' }`}>
+                                                <div className={`w-full p-1 md:p-2 ${ (image === selectedBg) ? 'border-4 border-orange-700' : '' }`}>
                                                     <picture>
-                                                        <img alt="gallery" className={`block object-cover object-center w-full rounded-lg h-40 ${ isPortraitImage ? "pointer-events-none" : "" }`} src={image.default.src} onClick={(event) => { onBackgroundSelect(event, image) }} />
+                                                        <img alt="gallery" className={`block object-cover object-center w-full rounded-lg h-40 ${isPortraitImage ? "pointer-events-none" : ""}`} src={`backgrounds/${image}`} onClick={(event) => { onBackgroundSelect(event, image) }} />
                                                     </picture>
                                                 </div>
                                             </label>
