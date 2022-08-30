@@ -1,5 +1,4 @@
-import { ChatIcon, ClockIcon, LocationMarkerIcon } from "@heroicons/react/outline"
-import { useEffect, useState } from "react"
+import { ClockIcon, LocationMarkerIcon } from "@heroicons/react/outline"
 import CardDetails from "./CardDetails"
 import LocationCardDetails from "./LocationCardDetails"
 
@@ -15,7 +14,7 @@ const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails
                 </p>
             </div>
             <div className="flex flex-col items-stretch pb-5 px-2">
-                <div className="w-full border-stone-900 bg-stone-200 border-2 mb-5 pl-5 py-1 rounded shadow-lg inline-flex items-center">
+                <div className="w-full border-stone-900 bg-stone-100 border-2 mb-5 pl-5 py-1 rounded shadow-lg inline-flex items-center">
                     <p className="text-stone-900 font-bold text-left text-xl font-montserrat">{message}</p>
                 </div>
                 <CardDetails
@@ -50,7 +49,7 @@ const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, 
                 <img src={imageURL} alt="invitation image" className="px-2 w-full rounded shadow-xl" style={{ maxHeight: '60vh' }} />
             </picture>
             <div className="flex flex-col shadow items-stretch px-2">
-                <div className="mt-5 mb-5 border-2 bg-stone-200 border-stone-900 w-full py-1 rounded shadow-lg">
+                <div className="mt-5 mb-5 border-2 bg-stone-100 border-stone-900 w-full py-1 rounded shadow-lg">
                     <p className="text-slate-900 text-xl font-semibold text-left font-montserrat px-2">{message}</p>
                 </div>
                 <CardDetails
@@ -71,23 +70,11 @@ const CenteredOverlayCard = ({ title, imageURL, message, location, dateDetails, 
 )
 
 const InvitationCard = ({ title, imageURL, message, location, startDate, endDate, primaryButton, secondaryButton, background }) => {
-    const [isPortraitImage, setIsPortraitImage] = useState(false)
     const dateDetails = `${startDate} - ${endDate}`
-
-    useEffect(() => {
-        const image = new Image()
-        image.src = imageURL
-
-        image.onload = () => {
-            const actualWidth = image.width
-            const actualHeight = image.height
-            
-            setIsPortraitImage(actualHeight > actualWidth)
-        }
-    }, [imageURL])
+    const isPortraitImage = background === ""
 
     return (
-        isPortraitImage ?
+        (isPortraitImage) ?
             <FullScreenOverlayCard title={title} imageURL={imageURL} message={message} location={location} dateDetails={dateDetails} primaryButton={primaryButton} secondaryButton={secondaryButton} /> :
             <CenteredOverlayCard title={title} imageURL={imageURL} message={message} location={location} dateDetails={dateDetails} primaryButton={primaryButton} secondaryButton={secondaryButton} background={background} />
     )

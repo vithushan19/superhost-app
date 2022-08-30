@@ -33,6 +33,8 @@ const Confirmation = () => {
     event.preventDefault()
     setShowLoadingSpinner(true)
 
+    const questionsData = Array.isArray(savedQuestions) ? savedQuestions : new Array(savedQuestions)
+
     const eventRef = await addDoc(collection(db, "events"), {
       host: hostEmail,
       eventTitle: title,
@@ -40,8 +42,9 @@ const Confirmation = () => {
       startDate: startDate,
       endDate: endDate,
       message: eventMessage,
-      questions: savedQuestions.map(questionId => parseInt(questionId)),
-      imageURL: imageURL
+      questions: questionsData,
+      imageURL: imageURL,
+      cardBackground: selectedBg
     })
 
     await updateDoc(doc(db, "hosts", hostEmail), {

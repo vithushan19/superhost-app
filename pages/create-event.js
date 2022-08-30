@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { format, parse, setHours, setMinutes } from 'date-fns'
+import { format, setHours, setMinutes } from 'date-fns'
 import PlacesAutocomplete from '../components/PlacesAutocomplete'
 import DatePicker from 'react-datepicker'
 import { storage } from "../utils/firebase-config"
