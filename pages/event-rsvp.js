@@ -2,24 +2,54 @@ import { MailIcon } from "@heroicons/react/outline"
 import { doc, setDoc } from "firebase/firestore"
 import { TextInput } from "flowbite-react"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SuccessRSVPModal from "../components/SuccessRSVPModal"
 import { db } from "../utils/firebase-config"
 import { QUESTIONS_DATA } from "../utils/questions-data"
 
 const EventRSVP = () => {
     const router = useRouter()
-    const event = JSON.parse(router.query.event ?? "{}")
     const eventID = router.query.eventID
 
-    const questionIds = (event.questions ?? []).map((question) => { return parseInt(question) })
-
+    const [event, setEvent] = useState({})
+    const [questionIds, setQuestionIds] = useState([])
     const [name, setName] = useState("")
     const [status, setStatus] = useState("Attending")
-    const [answers, setAnswers] = useState((questionIds.indexOf(1) !== -1) ? new Map(Object.entries({ 1: "Attending" })) : new Map())
+    const [answers, setAnswers] = useState(new Map())
 
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
     const [showModal, setShowModal] = useState(false)
+
+    useEffect(() => {
+        if (router.query.event !== undefined) {
+            const event = JSON.parse(router.query.event)
+            const questions = event.questions.map(question => { return parseInt(question) })
+            const answersMap = new Map()
+
+            setEvent(event)
+            setQuestionIds(questions)
+            
+            console.log(questions)
+
+            for (const question of questions) {
+                switch (question) {
+                    case 1:
+                        answersMap.set(1, "Attending")
+                        break
+                    case 2:
+                        answersMap.set(2, false)
+                        break
+                    case 3:
+                        answersMap.set(3, false)
+                        break
+                    default:
+                        break
+                }
+            }
+
+            setAnswers(answersMap)
+        }
+    }, [router.query.event])
 
     const updateAnswers = (questionId, newValue) => {
         setAnswers(new Map(answers.set(questionId, newValue)))
@@ -44,6 +74,7 @@ const EventRSVP = () => {
 
     return (
         <>
+            <div>{ console.log(answers) }</div>
             <SuccessRSVPModal showModal={showModal} eventID={eventID} event={event} />
             <div className={`flex flex-col py-5 bg-gray-900 h-screen ${showModal ? "opacity-50" : "opacity-100"}`}>
                 {
@@ -84,8 +115,6 @@ const EventRSVP = () => {
                             <option value="Declined">{"I can't make it."}</option>
                         </select>
                     </div>
-                    <div>{console.log(questionIds)}</div>
-    
                     {
                         QUESTIONS_DATA.map((question) => {
                             if (questionIds.indexOf(question.id) !== -1) {

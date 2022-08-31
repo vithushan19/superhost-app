@@ -87,7 +87,6 @@ const CreateEvent = () => {
     if (router.query.formData !== undefined) {
       const formData = JSON.parse(router.query.formData)
       const savedQuestions = Array.isArray(formData.savedQuestions) ? formData.savedQuestions : new Array(formData.savedQuestions)
-      console.log(formData.savedQuestions)
       setTitle(formData.title)
       setEventLocation(formData.eventLocation)
       setEventMessage(formData.eventMessage)
