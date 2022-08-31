@@ -63,7 +63,7 @@ const GuestList = () => {
                 }
 
                 setGuests(guestData)
-                setEventQuestions(eventData.questions)
+                setEventQuestions(eventData.questions.map(question => { return parseInt(question) }))
                 setCountMap(answersCountData)
             }
         }
