@@ -9,7 +9,7 @@ const FullScreenOverlayCard = ({ title, imageURL, message, location, dateDetails
                 <p className="text-gray-50 text-2xl text-center font-extrabold font-dancingScript tracking-wide pt-5">
                     {"You're invited to"}
                 </p>
-                <p className="text-gray-50 text-3xl pt-2 uppercase text-center font-playfairDisplay">
+                <p className="text-gray-50 text-3xl pt-2 px-2 uppercase text-center font-playfairDisplay">
                     {title}
                 </p>
             </div>
