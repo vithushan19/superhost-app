@@ -1,7 +1,7 @@
 export const QUESTIONS_DATA = [
     {
         id: 1,
-        title: "Will you be attending the pre?",
+        title: "Will you be attending the pregame?",
         type: "rsvp",
         columnName: "Attending Pregame?"
     },
