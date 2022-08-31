@@ -84,7 +84,7 @@ const Confirmation = () => {
     if (navigator.share) {
       navigator.share({
         title: title,
-        text: 'Your invited!',
+        text: '',
         url: `https://app.usesuperhost.com/events/${eventId}`
       }).then(() => {
         setShowShareSpinner(false)

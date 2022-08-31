@@ -51,7 +51,7 @@ const ShareEvent = () => {
         if (navigator.share) {
           navigator.share({
             title: event.eventTitle,
-            text: 'Your invited!',
+            text: '',
             url: `https://app.usesuperhost.com/events/${eventId}`
           }).then(() => {
             setLoading(false)
