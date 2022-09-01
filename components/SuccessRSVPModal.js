@@ -1,4 +1,4 @@
-import { CalendarIcon } from "@heroicons/react/outline"
+import { CalendarIcon, SparklesIcon } from "@heroicons/react/outline"
 import Image from "next/image"
 import Link from "next/link"
 import rsvpSuccess from "../public/rsvpSuccess.png"
@@ -32,14 +32,13 @@ const SuccessRSVPModal = ({ showModal, eventID, event }) => {
                     </p>
                     </div>
                     <div className="flex flex-col items-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <Link href={`/events/${eventID}`}>
-                            <button data-modal-toggle="defaultModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">
-                                Take Me Back
-                            </button>
-                        </Link>
                         <button type="button" onClick={addToCalendarPress} className="justify-center flex text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full">
                             <CalendarIcon className='text-white h-5 w-5 mr-2' />
                             Add to Calendar
+                        </button>
+                        <button type="button" onClick={() => { window.open('http://www.usesuperhost.com', '_blank') }} className="justify-center flex text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 w-full">
+                            <SparklesIcon className='text-white h-5 w-5 mr-2' />
+                            Join Superhost
                         </button>
                     </div>
                 </div>
