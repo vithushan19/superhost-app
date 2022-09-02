@@ -156,7 +156,7 @@ const GuestList = () => {
                 }
                 {
                     guests.length === 0 && <p className="text-blue-500 text-center mt-10">
-                        No events to display yet!
+                        No guests to display yet!
                     </p>
                 }
             </main>
