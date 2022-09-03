@@ -29,6 +29,7 @@ const CreateEvent = () => {
   const [eventLocation, setEventLocation] = useState("")
   const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 18))
   const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 21))
+  const [displayImageUpload, setDisplayImageUpload] = useState(false)
   const [image, setImage] = useState(null)
   const [eventMessage, setEventMessage] = useState("")
   const [savedQuestions, setSavedQuestions] = useState([])
@@ -41,30 +42,39 @@ const CreateEvent = () => {
     setShowLoadingSpinner(true)
 
     if (image == null) {
-      alert("You must provide an image.")
-      setShowLoadingSpinner(false)
-      return
+      router.push({
+        pathname: '/finalize-design',
+        query: {
+          hostEmail,
+          title,
+          eventLocation,
+          startDate: format(startDate, "MMM dd, yyyy hh:mm aa"),
+          endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
+          eventMessage,
+          savedQuestions
+        }
+      })
+    } else {
+      const imagePath = image.name + v4()
+      const imageRef = ref(storage, imagePath)
+      
+      const snapshot = await uploadBytes(imageRef, image)
+      const imageURL = await getDownloadURL(snapshot.ref)
+
+      router.push({
+        pathname: '/confirmation',
+        query: {
+          hostEmail,
+          title,
+          eventLocation,
+          startDate: format(startDate, "MMM dd, yyyy hh:mm aa"),
+          endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
+          imageURL,
+          eventMessage,
+          savedQuestions
+        }
+      })
     }
-
-    const imagePath = image.name + v4()
-    const imageRef = ref(storage, imagePath)
-
-    const snapshot = await uploadBytes(imageRef, image)
-    const imageURL = await getDownloadURL(snapshot.ref)
-
-    router.push({
-      pathname: '/finalize-design',
-      query: {
-        hostEmail,
-        title,
-        eventLocation,
-        startDate: format(startDate, "MMM dd, yyyy hh:mm aa"),
-        endDate: format(endDate, "MMM dd, yyyy hh:mm aa"),
-        imageURL,
-        eventMessage,
-        savedQuestions
-      }
-    })
 
     setShowLoadingSpinner(false)
   }
@@ -140,13 +150,18 @@ const CreateEvent = () => {
           <div className='flex flex-row gap-4 items-center self-end'>
             <p className="text-gray-300 font-medium">To</p><DateTimePicker date={endDate} setDate={setEndDate} />
           </div>
-          <div id="fileUpload" className='text-left'>
+          <label htmlFor="default-toggle" className="inline-flex relative items-center cursor-pointer">
+            <input type="checkbox" value="" id="default-toggle" className="sr-only peer" checked={displayImageUpload} onChange={ (event) => { setDisplayImageUpload(!displayImageUpload) } } />
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Add an Image</span>
+          </label>
+          { displayImageUpload && <div id="fileUpload" className='text-left'>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="file_input">Upload Invitation Image</label>
               <input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" onChange={(event) => { setImage(event.target.files[0]) }} />
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG or JPG (MAX. 800x400px).</p>
             </div>
-          </div>
+          </div>}
           <div id="textArea" className="text-left">
             <div className="mb-2 block">
               <Label htmlFor="comment" value="Anything your guests should know?" />
