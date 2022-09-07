@@ -6,21 +6,20 @@ import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { SwatchesPicker } from "react-color"
 import { Button, ListGroup } from "flowbite-react"
-import { EditText } from "react-edit-text"
 import { SparklesIcon } from "@heroicons/react/outline"
 import ShareModal from "../components/ShareModal"
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore"
 import { db } from "../utils/firebase-config"
 
-import 'react-edit-text/dist/index.css'
+import { Label } from "../components/Label"
 
-const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, onTitleChange, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
+const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
     const locationText = (location !== undefined ) ? location : ""
     return (
         <div className="w-full flex justify-center px-2" style={{ height: '65vh', touchAction: 'none' }}>
             <div className="w-full flex flex-col justify-center items-center bg-gray-300" style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 <animated.div {...bindTitlePos()} style={{ y: titlePos.y, x: titlePos.x }}>
-                    <EditText showEditButton editButtonProps={{ style: { marginLeft: '5px', width: 16 } }} style={{ color: titleColor}} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`} value={title} onChange={onTitleChange} />
+                    <p style={{ color: titleColor }} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
                 </animated.div>
                 <animated.div {...bindDetailsPos()} style={{ y: detailsPos.y, x: detailsPos.x }} className="flex flex-col text-xs text-left">
                     <p><b>Date: </b>{dateDetails}</p>
@@ -55,11 +54,12 @@ const CardDesignLayout = () => {
     const [showShareModal, setShowShareModal] = useState(false)
     const [listOfImages, setListOfImages] = useState([])
     const [selectedBg, setSelectedBg] = useState("")
-    const [title, setTitle] = useState("Write a Title")
+    const [title, setTitle] = useState("Placeholder Title")
     const [titleColor, setTitleColor] = useState("#475569")
     const [titleFont, setTitleFont] = useState("font-dancingScript")
     const [displayColorDrawer, setDisplayColorDrawer] = useState(false)
     const [displayFontDrawer, setDisplayFontDrawer] = useState(false)
+    const [displayTitleDrawer, setDisplayTitleDrawer] = useState(false)
     const [eventId, setEventId] = useState("")
 
     const {
@@ -106,6 +106,13 @@ const CardDesignLayout = () => {
       
     const onCreateEvent = async (event) => {
         event.preventDefault()
+
+        if (title === 'Placeholder Title') {
+            alert("Please enter a title before creating the event.")
+            
+            return
+        }
+        
         setShowLoadingSpinner(true)
 
         let questionsData = []
@@ -164,7 +171,7 @@ const CardDesignLayout = () => {
             <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
             <div className={`flex flex-col h-screen w-full justify-between py-2 bg-gray-900`}>
                 <CreateEventButton />
-                <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} onTitleChange={onTitleChange} title={title} titleFont={titleFont} titleColor={titleColor} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
+                <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} title={title} titleFont={titleFont} titleColor={titleColor} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
                 <div className="flex flex-col w-full justify-center items-center gap-5">
                     <div className="flex w-full items-center justify-around">
                         <Button color="dark" onClick={() => { setDisplayColorDrawer(!displayColorDrawer) }}>
@@ -179,6 +186,12 @@ const CardDesignLayout = () => {
                             </svg>
                             <p className="ml-3">Fonts</p>
                         </Button>
+                        <Button color="dark" onClick={() => { setDisplayTitleDrawer(!displayTitleDrawer) }}>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            <p className="ml-3">Add Title</p>
+                        </Button>
                     </div>
                     <div className="flex w-full overflow-x-scroll flex-nowrap mx-2 bg-gray-900 rounded">
                         {listOfImages.map((image, index) => {
@@ -192,6 +205,22 @@ const CardDesignLayout = () => {
                     </div>
                 </div>
             </div>
+            <Drawer
+                open={displayTitleDrawer}
+                onClose={() => { setDisplayTitleDrawer(!displayTitleDrawer) }}
+                direction='bottom'
+                size={200}
+                style={{ backgroundColor: 'rgb(15 23 42)' }}
+            >
+                <div className="h-full w-full px-5 py-3 flex flex-col justify-between items-center">
+                    <div className="w-full">
+                        <Label title={"Event Title"} />
+                        <form id="titleform">
+                            <input type="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={title} required onChange={onTitleChange} />
+                        </form>
+                    </div>
+                </div>
+            </Drawer>
             <Drawer
                 open={displayColorDrawer}
                 onClose={() => { setDisplayColorDrawer(!displayColorDrawer) }}
