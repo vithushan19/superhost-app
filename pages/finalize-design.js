@@ -15,6 +15,7 @@ import { db } from "../utils/firebase-config"
 import 'react-edit-text/dist/index.css'
 
 const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, onTitleChange, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
+    const locationText = (location !== undefined ) ? location : ""
     return (
         <div className="w-full flex justify-center px-2" style={{ height: '65vh' }}>
             <div className="w-full flex flex-col justify-center items-center bg-gray-300" style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
@@ -23,7 +24,7 @@ const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, onTi
                 </animated.div>
                 <animated.div {...bindDetailsPos()} style={{ y: detailsPos.y, x: detailsPos.x }} className="flex flex-col text-xs text-left">
                     <p><b>Date: </b>{dateDetails}</p>
-                    <p className="whitespace-pre-wrap"><b>Location: </b>{location.replace(',', '\n')}</p>
+                    <p className="whitespace-pre-wrap"><b>Location: </b>{locationText.replace(',', '\n')}</p>
                 </animated.div>
             </div>
         </div>

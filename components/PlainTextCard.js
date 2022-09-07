@@ -1,6 +1,7 @@
 import { animated } from "react-spring"
 
 const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, backgroundURL, startDate, endDate, location, primaryButton }) => {
+    const locationText = (location !== undefined) ? location : ""
     const dateDetails = `${startDate} - ${endDate}`
     
     return (
@@ -11,7 +12,7 @@ const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, bac
                 </animated.div>
                 <animated.div style={{ y: detailsPos.y, x: detailsPos.x }} className="flex flex-col text-xs text-left">
                     <p><b>Date: </b>{dateDetails}</p>
-                    <p className="whitespace-pre-wrap"><b>Location: </b>{location.replace(',', '\n')}</p>
+                    <p className="whitespace-pre-wrap"><b>Location: </b>{locationText.replace(',', '\n')}</p>
                 </animated.div>
             </div>
             {primaryButton}
