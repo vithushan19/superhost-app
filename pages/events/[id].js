@@ -5,6 +5,7 @@ import { db } from '../../utils/firebase-config'
 import { SparklesIcon } from '@heroicons/react/outline'
 import InvitationCard from '../../components/InvitationCard'
 import { useRouter } from 'next/router'
+import PlainTextCard from '../../components/PlainTextCard'
 
 const Event = ({ eventID, event }) => {
   const router = useRouter()
@@ -38,7 +39,15 @@ const Event = ({ eventID, event }) => {
         <meta property="og:title" content={event.eventTitle} key="ogtitle" />
         <meta property="og:description" content={event.location} key="ogdesc" />
       </Head>
-      <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<RSVPToEventButton />} background={event.cardBackground} />
+      {
+        event.type === 'portrait' && <InvitationCard isEditable={false} title={event.eventTitle} imageURL={event.imageURL} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<RSVPToEventButton />} isPortraitImage={true} />
+      }
+      {
+        event.type === 'landscape' && <InvitationCard isEditable={false} title={event.eventTitle} imageURL={event.imageURL} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<RSVPToEventButton />} isPortraitImage={false} />
+      }
+      {
+        event.type === 'plainText' && <PlainTextCard titlePos={JSON.parse(event.designProps.titlePos)} detailsPos={JSON.parse(event.designProps.detailsPos)} title={event.eventTitle} titleFont={event.designProps.titleFont} titleColor={event.designProps.titleColor} backgroundURL={event.cardBackground} startDate={event.startDate} endDate={event.endDate} location={event.location} primaryButton={<RSVPToEventButton/>} />
+      }
     </>
   )
 }

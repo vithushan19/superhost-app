@@ -74,7 +74,6 @@ const EventRSVP = () => {
 
     return (
         <>
-            <div>{ console.log(answers) }</div>
             <SuccessRSVPModal showModal={showModal} eventID={eventID} event={event} />
             <div className={`flex flex-col py-5 bg-gray-900 h-screen ${showModal ? "opacity-50" : "opacity-100"}`}>
                 {

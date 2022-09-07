@@ -3,6 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import InvitationCard from "../../components/InvitationCard";
+import PlainTextCard from "../../components/PlainTextCard";
 import { db } from "../../utils/firebase-config";
 
 const ShareEvent = () => {
@@ -64,7 +65,16 @@ const ShareEvent = () => {
 
     return (
         <>
-            <InvitationCard title={event.eventTitle} imageURL={event.imageURL} message={event.message} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} background={event.cardBackground} />
+            <>{ console.log(event) }</>
+            {
+                event.type === 'portrait' && <InvitationCard isEditable={false} title={event.eventTitle} imageURL={event.imageURL} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} isPortraitImage={true} />
+            }
+            {
+                event.type === 'landscape' && <InvitationCard isEditable={false} title={event.eventTitle} imageURL={event.imageURL} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} isPortraitImage={false} />
+            }
+            {
+                event.type === 'plainText' && <PlainTextCard titlePos={JSON.parse(event.designProps.titlePos)} detailsPos={JSON.parse(event.designProps.detailsPos)} title={event.eventTitle} titleFont={event.designProps.titleFont} titleColor={event.designProps.titleColor} backgroundURL={event.cardBackground} startDate={event.startDate} endDate={event.endDate} location={event.location} primaryButton={<ShareButton />} />
+            }
         </>
     )
 }

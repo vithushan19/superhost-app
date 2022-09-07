@@ -9,9 +9,13 @@ module.exports = {
     extend: {
       fontFamily: {
         'dancingScript': ['Dancing Script', 'sans-serif'],
-        'cinzel': ['Cinzel', 'serif'],
+        'cinzel': ['Cinzel', 'sans-serif'],
         'montserrat': ['Montserrat', 'sans-serif'],
-        'playfairDisplay': ['Playfair Display', 'serif']
+        'playfairDisplay': ['Playfair Display', 'serif'],
+        'greatVibes': ['Great Vibes', 'sans-serif'],
+        'merriweather': ['Merriweather', 'sans-serif'],
+        'lato': ['Lato', 'sans-serif'],
+        'kalam': ['Kalam', 'sans-serif'],
       }
     },
   },

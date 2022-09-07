@@ -11,7 +11,11 @@ class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet" />
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button/assets/css/atcb.min.css" />
         </Head>
         <body>

@@ -14,16 +14,14 @@ const Confirmation = () => {
 
   const {
     hostEmail,
-    title,
     eventLocation,
     startDate,
     endDate,
     imageURL,
-    eventMessage,
-    savedQuestions,
-    selectedBg
+    savedQuestions
   } = router.query
-    
+
+  const [cardTitle, setCardTitle] = useState("Create a Title")
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
   const [showShareSpinner, setShowShareSpinner] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
@@ -47,18 +45,21 @@ const Confirmation = () => {
     event.preventDefault()
     setShowLoadingSpinner(true)
 
-    const questionsData = Array.isArray(savedQuestions) ? savedQuestions : new Array(savedQuestions)
+    let questionsData = []
+
+    if (savedQuestions !== undefined) {
+        questionsData = Array.isArray(savedQuestions) ? savedQuestions : new Array(savedQuestions)
+    }
 
     const eventRef = await addDoc(collection(db, "events"), {
       host: hostEmail,
-      eventTitle: title,
+      eventTitle: cardTitle,
       location: eventLocation,
       startDate: startDate,
       endDate: endDate,
-      message: eventMessage,
       questions: questionsData,
       imageURL: imageURL,
-      cardBackground: selectedBg
+      type: isPortraitImage ? "portrait" : "landscape"
     })
 
     await updateDoc(doc(db, "hosts", hostEmail), {
@@ -71,6 +72,10 @@ const Confirmation = () => {
     setShowLoadingSpinner(false)
   }
 
+  const onTitleChange = (event) => {
+    setCardTitle(event.target.value)
+  }
+
   const onMakeChanges = (event) => {
     event.preventDefault()
     
@@ -79,11 +84,9 @@ const Confirmation = () => {
       query: {
         hostEmail: hostEmail,
         formData: JSON.stringify({
-          title,
           eventLocation,
           startDate,
           endDate,
-          eventMessage,
           savedQuestions: savedQuestions,
         })
       }
@@ -97,7 +100,7 @@ const Confirmation = () => {
   
     if (navigator.share) {
       navigator.share({
-        title: title,
+        title: cardTitle,
         text: '',
         url: `https://app.usesuperhost.com/events/${eventId}`
       }).then(() => {
@@ -143,9 +146,9 @@ const Confirmation = () => {
                     <span className="sr-only">Loading...</span>
                 </div>
       </div>
-      <div className={`${ isLoading ? 'hidden' : 'block'}`}>
+      <div className={`${isLoading ? 'hidden' : 'block'}`}>
         <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-        <InvitationCard title={title} imageURL={imageURL} message={eventMessage} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<CreateEventButton />} secondaryButton={<MakeChangesButton/>} isPortraitImage={isPortraitImage} />
+        <InvitationCard isEditable={true} title={cardTitle} onTitleChange={onTitleChange} imageURL={imageURL} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<CreateEventButton />} secondaryButton={<MakeChangesButton/>} isPortraitImage={isPortraitImage} />
       </div>
     </>
   )
