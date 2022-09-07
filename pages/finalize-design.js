@@ -17,7 +17,7 @@ import 'react-edit-text/dist/index.css'
 const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, onTitleChange, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
     const locationText = (location !== undefined ) ? location : ""
     return (
-        <div className="w-full flex justify-center px-2" style={{ height: '65vh' }}>
+        <div className="w-full flex justify-center px-2" style={{ height: '65vh', touchAction: 'none' }}>
             <div className="w-full flex flex-col justify-center items-center bg-gray-300" style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 <animated.div {...bindTitlePos()} style={{ y: titlePos.y, x: titlePos.x }}>
                     <EditText showEditButton editButtonProps={{ style: { marginLeft: '5px', width: 16 } }} style={{ color: titleColor}} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`} value={title} onChange={onTitleChange} />
@@ -162,7 +162,7 @@ const CardDesignLayout = () => {
     return (
         <>
             <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-            <div className={`flex flex-col h-screen w-full justify-between py-2 bg-gray-900`} style={{ touchAction: 'none' }}>
+            <div className={`flex flex-col h-screen w-full justify-between py-2 bg-gray-900`}>
                 <CreateEventButton />
                 <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} onTitleChange={onTitleChange} title={title} titleFont={titleFont} titleColor={titleColor} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
                 <div className="flex flex-col w-full justify-center items-center gap-5">
