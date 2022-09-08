@@ -13,6 +13,7 @@ const Confirmation = () => {
   const router = useRouter()
 
   const {
+    title,
     hostEmail,
     eventLocation,
     startDate,
@@ -21,7 +22,6 @@ const Confirmation = () => {
     savedQuestions
   } = router.query
 
-  const [cardTitle, setCardTitle] = useState("Create a Title")
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false)
   const [showShareSpinner, setShowShareSpinner] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
@@ -53,7 +53,7 @@ const Confirmation = () => {
 
     const eventRef = await addDoc(collection(db, "events"), {
       host: hostEmail,
-      eventTitle: cardTitle,
+      eventTitle: title,
       location: eventLocation,
       startDate: startDate,
       endDate: endDate,
@@ -72,10 +72,6 @@ const Confirmation = () => {
     setShowLoadingSpinner(false)
   }
 
-  const onTitleChange = (event) => {
-    setCardTitle(event.target.value)
-  }
-
   const onMakeChanges = (event) => {
     event.preventDefault()
     
@@ -84,6 +80,7 @@ const Confirmation = () => {
       query: {
         hostEmail: hostEmail,
         formData: JSON.stringify({
+          title,
           eventLocation,
           startDate,
           endDate,
@@ -100,7 +97,7 @@ const Confirmation = () => {
   
     if (navigator.share) {
       navigator.share({
-        title: cardTitle,
+        title: title,
         text: '',
         url: `https://app.usesuperhost.com/events/${eventId}`
       }).then(() => {
@@ -148,7 +145,7 @@ const Confirmation = () => {
       </div>
       <div className={`${isLoading ? 'hidden' : 'block'}`}>
         <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-        <InvitationCard isEditable={true} title={cardTitle} onTitleChange={onTitleChange} imageURL={imageURL} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<CreateEventButton />} secondaryButton={<MakeChangesButton/>} isPortraitImage={isPortraitImage} />
+        <InvitationCard title={title} imageURL={imageURL} location={eventLocation} startDate={startDate} endDate={endDate} primaryButton={<CreateEventButton />} secondaryButton={<MakeChangesButton />} isPortraitImage={isPortraitImage} />
       </div>
     </>
   )
