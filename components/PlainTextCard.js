@@ -10,11 +10,13 @@ const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, bac
                     <p style={{ color: titleColor}} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
                 </animated.div>
                 <animated.div style={{ y: detailsPos.y - 10, x: detailsPos.x - 10 }} className="flex flex-col text-xs text-left">
-                    <p><b>Date: </b>{startDate}</p>
-                    <p className="whitespace-pre-wrap"><b>Location: </b>{locationText.replace(',', '\n')}</p>
+                    <p className="text-primary-content"><b>Date: </b>{startDate}</p>
+                    <p className="text-primary-content whitespace-pre-wrap"><b>Location: </b>{locationText.replace(',', '\n')}</p>
                 </animated.div>
             </div>
-            {primaryButton}
+            <div className="my-2 w-full flex justify-center">
+                {primaryButton}
+            </div>
         </div>
     )
 }

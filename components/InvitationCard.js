@@ -57,7 +57,7 @@ const CenteredOverlayCard = ({ title, imageURL, location, dateDetails, primaryBu
                         <LocationMarkerIcon className="mr-1 h-5 w-5 text-slate-900" />
                     }
                 />
-                <div className="my-5">{primaryButton}</div>
+                <div className="my-2 w-full flex justify-center">{primaryButton}</div>
             </div>
         </div>
     </>
