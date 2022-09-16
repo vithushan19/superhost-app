@@ -1,5 +1,4 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { Button } from 'flowbite-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -39,42 +38,40 @@ const Dashboard = () => {
     }, [hostEmail])
 
     return (
-        <div className='px-3 bg-gray-800'>
-            <main className="flex flex-col items-center py-6 h-screen">
-                <div className='w-full flex justify-between'>
-                    <Button color="dark" size="sm" pill={true} onClick={() => router.back()}>
-                        <Link href="/">
-                            Logout
-                        </Link>
-                    </Button>
-                    <Button gradientDuoTone='cyanToBlue' onClick={onCreateEvent}>
-                        Create Event
-                    </Button>
-                </div>
-                <div className='w-full my-5'>
-                    <div className='my-5 text-sm font-semibold text-white'>Select an event to view the guest count.</div>
-                    { events.length > 0 && <ul className="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        {
-                            events.map(event => {
-                                const location = event.data.location
-
-                                return (<li key={event.id} className="py-4 px-4 w-full border-b border-gray-200 dark:border-gray-600">
-                                    <Link href={`/guestlist/${encodeURIComponent(event.id)}`}>
-                                        <div className='flex flex-col text-left gap-2'>
-                                            <p>{event.data.eventTitle}</p>
-                                            <p className="text-xs text-blue-500">{location.substring(0, location.indexOf(','))}</p>
-                                            <p className="text-xs text-blue-500">{`${event.data.startDate} - ${event.data.endDate}`}</p>
-                                        </div>
-                                    </Link>
-                                </li>)
-                            })
-                        }
-                    </ul>}
+        <div className='flex flex-col items-center py-6 h-screen px-3 bg-base-100'>
+            <div className='w-full flex justify-between'>
+                <button className='btn' onClick={() => router.back()}>
+                    <Link href="/">
+                        Logout
+                    </Link>
+                </button>
+                <button className='btn btn-primary' onClick={onCreateEvent}>
+                    Create Event
+                </button>
+            </div>
+            <div className='w-full my-5'>
+                <h6 className='my-5'>Select an event to view the guest count.</h6>
+                { events.length > 0 && <ul className="menu bg-base-100 w-full">
                     {
-                        events.length === 0 && <p className='w-full text-center text-blue-500'>No events to display yet. Create your first event!</p>
+                        events.map(event => {
+                            const location = event.data.location
+
+                            return (<li key={event.id} className="py-4 px-4 w-full border-b border-gray-200 dark:border-gray-600">
+                                <Link href={`/guestlist/${encodeURIComponent(event.id)}`}>
+                                    <div className='flex flex-col items-start'>
+                                        <p>{event.data.eventTitle}</p>
+                                        <p className="text-xs text-blue-500">{location.substring(0, location.indexOf(','))}</p>
+                                        <p className="text-xs text-blue-500">{`${event.data.startDate} - ${event.data.endDate}`}</p>
+                                    </div>
+                                </Link>
+                            </li>)
+                        })
                     }
-                </div>
-            </main>
+                </ul>}
+                {
+                    events.length === 0 && <p className='w-full text-center text-blue-500'>No events to display yet. Create your first event!</p>
+                }
+            </div>
         </div>
     )
 }

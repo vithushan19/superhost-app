@@ -21,8 +21,8 @@ const Event = ({ eventID, event }) => {
   }
 
   const RSVPToEventButton = () => (
-    <button type="button" onClick={onRSVPButtonPress} className="justify-center flex text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mb-2 w-full">
-      <SparklesIcon className='text-white h-5 w-5 mr-2' />
+    <button className="btn btn-block glass text-white" onClick={onRSVPButtonPress}>
+      <SparklesIcon className='h-5 w-5 mr-2' />
       RSVP to Event
     </button>
   )

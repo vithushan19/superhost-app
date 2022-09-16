@@ -5,7 +5,6 @@ import { useDrag } from "react-use-gesture"
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { SwatchesPicker } from "react-color"
-import { Button, ListGroup } from "flowbite-react"
 import { SparklesIcon } from "@heroicons/react/outline"
 import ShareModal from "../components/ShareModal"
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore"
@@ -17,11 +16,11 @@ const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, titl
     const locationText = (location !== undefined ) ? location : ""
     return (
         <div className="w-full flex justify-center px-2" style={{ height: '65vh', touchAction: 'none' }}>
-            <div className="w-full flex flex-col justify-center items-center bg-gray-300" style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+            <div className={`w-full flex flex-col justify-center items-center ${ backgroundURL ? 'bg-black' : 'bg-white' }`} style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 <animated.div {...bindTitlePos()} style={{ y: titlePos.y, x: titlePos.x }}>
-                    <p style={{ color: titleColor }} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
+                    <p style={{ color: titleColor }} className={`tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
                 </animated.div>
-                <animated.div {...bindDetailsPos()} style={{ y: detailsPos.y, x: detailsPos.x }} className="flex flex-col text-xs text-left">
+                <animated.div {...bindDetailsPos()} style={{ y: detailsPos.y, x: detailsPos.x }} className="text-neutral flex flex-col text-xs text-left">
                     <p><b>Date: </b>{dateDetails}</p>
                     <p className="whitespace-pre-wrap"><b>Location: </b>{locationText.replace(',', '\n')}</p>
                 </animated.div>
@@ -72,16 +71,12 @@ const CardDesignLayout = () => {
 
     const CreateEventButton = () => {
         return (
-            showLoadingSpinner ? <button disabled type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 self-end flex items-center">
-            <svg role="status" className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
-                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
-            </svg>
-            Loading...
-        </button> : <button type="button" onClick={onCreateEvent} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 self-end flex items-center">
-            <SparklesIcon className='text-white h-5 w-5 mr-2'/>
-            Create Event
-        </button>
+            showLoadingSpinner ?
+                <button className="btn btn-primary btn-sm loading self-end mr-2 my-2">Loading</button> :
+                <button onClick={onCreateEvent} className="btn btn-primary btn-sm gap-2 self-end mr-2 my-2">
+                    <SparklesIcon className='h-5 w-5 mr-2' />
+                    Create Event
+                </button>
         )
     }
 
@@ -169,31 +164,31 @@ const CardDesignLayout = () => {
     return (
         <>
             <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
-            <div className={`flex flex-col h-screen w-full justify-between py-2 bg-gray-900`}>
+            <div className={`flex flex-col h-screen w-full justify-between`}>
                 <CreateEventButton />
                 <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} title={title} titleFont={titleFont} titleColor={titleColor} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
                 <div className="flex flex-col w-full justify-center items-center gap-5">
                     <div className="flex w-full items-center justify-around">
-                        <Button color="dark" onClick={() => { setDisplayColorDrawer(!displayColorDrawer) }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplayColorDrawer(!displayColorDrawer) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
                             </svg>
-                            <p className="ml-3">Colors</p>
-                        </Button>
-                        <Button color="dark" onClick={() => { setDisplayFontDrawer(!displayFontDrawer) }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-type">
+                            Colors
+                        </button>
+                        <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplayFontDrawer(!displayFontDrawer) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                                 <polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line>
                             </svg>
-                            <p className="ml-3">Fonts</p>
-                        </Button>
-                        <Button color="dark" onClick={() => { setDisplayTitleDrawer(!displayTitleDrawer) }}>
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            Fonts
+                        </button>
+                        <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplayTitleDrawer(!displayFontDrawer) }}>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
-                            <p className="ml-3">Add Title</p>
-                        </Button>
+                            Add Title
+                        </button>
                     </div>
-                    <div className="flex w-full overflow-x-scroll flex-nowrap mx-2 bg-gray-900 rounded">
+                    <div className="flex w-full overflow-x-scroll flex-nowrap mx-2 rounded">
                         {listOfImages.map((image, index) => {
                             return (
                                 <div key={index} className={`w-full p-1 ${ (image === selectedBg) ? 'border-2 border-orange-700' : '' }`}>
@@ -210,14 +205,11 @@ const CardDesignLayout = () => {
                 onClose={() => { setDisplayTitleDrawer(!displayTitleDrawer) }}
                 direction='bottom'
                 size={200}
-                style={{ backgroundColor: 'rgb(15 23 42)' }}
             >
-                <div className="h-full w-full px-5 py-3 flex flex-col justify-between items-center">
+                <div className="bg-base-100 h-full w-full px-5 py-3 flex flex-col justify-between items-center">
                     <div className="w-full">
                         <Label title={"Event Title"} />
-                        <form id="titleform">
-                            <input type="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={title} required onChange={onTitleChange} />
-                        </form>
+                        <input type="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={title} required onChange={onTitleChange} />
                     </div>
                 </div>
             </Drawer>
@@ -227,8 +219,8 @@ const CardDesignLayout = () => {
                 direction='bottom'
                 size={300}
             >
-                <div className="h-full w-full items-center justify-around flex flex-col">
-                    <p className="font-semibold text-lg">Choose a Text Color:</p>
+                <div className="items-center justify-around flex flex-col gap-2 py-2 bg-base-100">
+                    <p>Choose a Text Color:</p>
                     <SwatchesPicker color={titleColor} onChangeComplete={(color) => { setTitleColor(color.hex) }} />
                 </div>
             </Drawer>
@@ -237,35 +229,34 @@ const CardDesignLayout = () => {
                 onClose={() => { setDisplayFontDrawer(!displayFontDrawer) }}
                 direction='bottom'
                 size={290}
-                className="bg-slate-900"
             >
                 <div className="w-full">
-                    <ListGroup>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-dancingScript") }}>
+                    <ul className="menu menu-compact bg-base-100 p-2">
+                        <li onClick={() => { setTitleFont("font-dancingScript") }}>
                             <p className="font-dancingScript">Dancing Script</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-cinzel") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-cinzel") }}>
                             <p className="font-cinzel">Cinzel</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-montserrat") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-montserrat") }}>
                             <p className="font-montserrat">Montserrat</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-playfairDisplay") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-playfairDisplay") }}>
                             <p className="font-playfairDisplay">Playfair Display</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-greatVibes") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-greatVibes") }}>
                             <p className="font-greatVibes">Great Vibes</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-merriweather") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-merriweather") }}>
                             <p className="font-merriweather">Merriweather</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-lato") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-lato") }}>
                             <p className="font-lato">Lato</p>
-                        </ListGroup.Item>
-                        <ListGroup.Item onClick={() => { setTitleFont("font-kalam") }}>
+                        </li>
+                        <li onClick={() => { setTitleFont("font-kalam") }}>
                             <p className="font-kalam">Kalam</p>
-                        </ListGroup.Item>
-                    </ListGroup>
+                        </li>
+                    </ul>
                 </div>
             </Drawer>
         </>
