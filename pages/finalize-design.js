@@ -11,6 +11,7 @@ import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firesto
 import { db } from "../utils/firebase-config"
 
 import { Label } from "../components/Label"
+import Image from "next/future/image"
 
 const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
     const locationText = (location !== undefined ) ? location : ""
@@ -191,10 +192,8 @@ const CardDesignLayout = () => {
                     <div className="flex w-full overflow-x-scroll flex-nowrap mx-2 rounded">
                         {listOfImages.map((image, index) => {
                             return (
-                                <div key={index} className={`w-full p-1 ${ (image === selectedBg) ? 'border-2 border-orange-700' : '' }`}>
-                                    <picture>
-                                        <img alt="gallery" className="block object-cover object-center rounded-lg" style={{ height: '15vh', width: '10vh', minWidth: '10vh' }} src={`backgrounds/${image}`} onClick={(event) => { onBackgroundSelect(event, image) }} />
-                                    </picture>
+                                <div key={index} className={`w-full p-1 ${ (image === selectedBg) ? 'border-2 border-orange-700' : '' }`} onClick={(event) => { onBackgroundSelect(event, image) }}>
+                                    <Image alt="gallery" height={100} width={100} style={{ borderRadius: '8px', display: 'block', objectFit: 'cover', objectPosition: 'center', height: '15vh', width: '10vh', minWidth: '10vh' }} src={`/backgrounds/${image}`} />
                                 </div>)
                         })}
                     </div>
