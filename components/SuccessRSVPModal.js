@@ -5,7 +5,7 @@ import rsvpSuccess from "../public/rsvpSuccess.png"
 import { atcb_action } from 'add-to-calendar-button'
 import { format } from "date-fns"
 
-const SuccessRSVPModal = ({ showModal, eventID, event }) => {
+const SuccessRSVPModal = ({ showModal, event }) => {
     const addToCalendarPress = () => {
         atcb_action({
             name: `${event.eventTitle}`,
@@ -24,7 +24,7 @@ const SuccessRSVPModal = ({ showModal, eventID, event }) => {
     return (
         <div id="defaultModal" tabIndex="-1" className={`${ showModal ? "" : "hidden"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full`}>
             <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative bg-white rounded-lg shadow">
                     <div className="flex flex-col p-5">
                     <Image src={rsvpSuccess} alt="celebration" />
                     <p className="mt-5 text-gray-300">
