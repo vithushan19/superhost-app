@@ -1,10 +1,11 @@
 import { CalendarIcon, SparklesIcon } from "@heroicons/react/outline"
+import Image from "next/image"
 import Link from "next/link"
 import rsvpSuccess from "../public/rsvpSuccess.png"
 import { atcb_action } from 'add-to-calendar-button'
 import { format } from "date-fns"
 
-const SuccessRSVPModal = ({ showModal, event }) => {
+const SuccessRSVPModal = ({ showModal, eventID, event }) => {
     const addToCalendarPress = () => {
         atcb_action({
             name: `${event.eventTitle}`,
@@ -21,7 +22,7 @@ const SuccessRSVPModal = ({ showModal, event }) => {
     }
 
     return (
-        <div id="defaultModal" className={`${showModal ? "" : "hidden"} fixed bottom-0 right-0 left-0 pb-10`}>
+        <div className={`${ showModal ? "" : "hidden"} overflow-y-auto overflow-x-hidden fixed bottom-0 right-0 left-0 z-50 w-full mb-5`}>
             <div className="modal-box w-full">
                 <h3 className="font-bold text-lg">
                     Thanks for submitting your response!
@@ -35,7 +36,8 @@ const SuccessRSVPModal = ({ showModal, event }) => {
                     </button>
                 </div>
             </div>
-        </div>)
+        </div>
+    )
 }
 
 export default SuccessRSVPModal
