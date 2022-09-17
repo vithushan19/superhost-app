@@ -1,5 +1,4 @@
 import { CalendarIcon, SparklesIcon } from "@heroicons/react/outline"
-import Image from "next/image"
 import Link from "next/link"
 import rsvpSuccess from "../public/rsvpSuccess.png"
 import { atcb_action } from 'add-to-calendar-button'
@@ -22,28 +21,21 @@ const SuccessRSVPModal = ({ showModal, event }) => {
     }
 
     return (
-        <div id="defaultModal" tabIndex="-1" className={`${ showModal ? "" : "hidden"} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full`}>
-            <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <div className="relative bg-white rounded-lg shadow">
-                    <div className="flex flex-col p-5">
-                    <Image src={rsvpSuccess} alt="celebration" />
-                    <p className="mt-5 text-gray-300">
-                        Thanks for submitting your response!
-                    </p>
-                    </div>
-                    <div className="flex flex-col items-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <button type="button" onClick={addToCalendarPress} className="justify-center flex text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-5 w-full">
-                            <CalendarIcon className='text-white h-5 w-5 mr-2' />
-                            Add to Calendar
-                        </button>
-                        <button type="button" onClick={() => { window.open('http://www.usesuperhost.com', '_blank') }} className="justify-center flex text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 w-full">
-                            <SparklesIcon className='text-white h-5 w-5 mr-2' />
-                            Join Superhost
-                        </button>
-                    </div>
+        <div id="defaultModal" className={`${showModal ? "" : "hidden"} fixed bottom-0 right-0 left-0 pb-10`}>
+            <div className="modal-box w-full">
+                <h3 className="font-bold text-lg">
+                    Thanks for submitting your response!
+                </h3>
+                <div className="modal-action items-center justify-between">
+                    <button onClick={addToCalendarPress} className="btn btn-primary">
+                        Add to Calendar
+                    </button>
+                    <button onClick={() => { window.open('http://www.usesuperhost.com', '_blank') }} className="btn btn-accent">
+                        Join Superhost
+                    </button>
                 </div>
             </div>
-    </div>)
+        </div>)
 }
 
 export default SuccessRSVPModal

@@ -72,7 +72,7 @@ const EventRSVP = () => {
     return (
         <>
             <SuccessRSVPModal showModal={showModal} eventID={eventID} event={event} />
-            <div className={`flex flex-col py-5 h-screen ${showModal ? "opacity-50" : "opacity-100"}`}>
+            <div className={`flex flex-col py-5 h-screen ${showModal ? "opacity-30" : "opacity-100"}`}>
                 {
                     showLoadingSpinner ?
                         <button disabled type="button" className="btn btn-success loading mr-5 mb-2 self-end">
