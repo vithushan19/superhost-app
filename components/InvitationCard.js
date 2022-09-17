@@ -1,3 +1,5 @@
+import Image from 'next/future/image'
+
 import { ClockIcon, LocationMarkerIcon } from "@heroicons/react/outline"
 import CardDetails from "./CardDetails"
 import LocationCardDetails from "./LocationCardDetails"
@@ -43,9 +45,7 @@ const CenteredOverlayCard = ({ title, imageURL, location, dateDetails, primaryBu
                     {title}
                 </p>
             </div>
-            <picture>
-                <img src={imageURL} alt="invitation image" className="px-2 w-full rounded shadow-xl" style={{ maxHeight: '60vh' }} />
-            </picture>
+            <Image src={imageURL} alt="invitation image" width={500} height={500} style={{ padding: '0px 8px', borderRadius: '4px' }} />
             <div className="flex flex-col shadow items-stretch px-2">
                 <CardDetails
                     text={dateDetails}
