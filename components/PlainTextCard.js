@@ -1,7 +1,8 @@
 import { SparklesIcon } from "@heroicons/react/outline"
 import { animated } from "react-spring"
 
-const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, backgroundURL, startDate, endDate, location, onRSVP }) => {
+const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, fontSize, backgroundURL, startDate, location, onRSVP }) => {
+    const fontSizeCSS = (fontSize !== undefined) ? `${fontSize}px` : '24px' 
     const locationText = (location !== undefined) ? location : ""
 
     return (
@@ -14,7 +15,7 @@ const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, bac
             </div>
             <div className="w-full flex flex-col justify-center items-center" style={{ height: '60vh', backgroundImage: `url("${`/backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 <animated.div style={{ y: titlePos.y, x: titlePos.x }}>
-                    <p style={{ color: titleColor}} className={`text-slate-600 tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
+                    <p style={{ color: titleColor, fontSize: fontSizeCSS}} className={`text-slate-600 tracking-wide ${titleFont} font-bold`}>{title}</p>
                 </animated.div>
                 <animated.div style={{ y: detailsPos.y, x: detailsPos.x }} className="flex flex-col text-xs text-left">
                     <p className="text-primary-content"><b>Date: </b>{startDate}</p>

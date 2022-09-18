@@ -60,7 +60,7 @@ const ShareEvent = () => {
                 event.type === 'landscape' && <InvitationCard title={event.eventTitle} imageURL={event.imageURL} location={event.location} startDate={event.startDate} endDate={event.endDate} primaryButton={<ShareButton />} isPortraitImage={false} />
             }
             {
-                event.type === 'plainText' && <PlainTextCard titlePos={JSON.parse(event.designProps.titlePos)} detailsPos={JSON.parse(event.designProps.detailsPos)} title={event.eventTitle} titleFont={event.designProps.titleFont} titleColor={event.designProps.titleColor} backgroundURL={event.cardBackground} startDate={event.startDate} endDate={event.endDate} location={event.location} primaryButton={<ShareButton />} />
+                event.type === 'plainText' && <PlainTextCard titlePos={JSON.parse(event.designProps.titlePos)} detailsPos={JSON.parse(event.designProps.detailsPos)} title={event.eventTitle} titleFont={event.designProps.titleFont} titleColor={event.designProps.titleColor} fontSize={event.designProps.fontSize} backgroundURL={event.cardBackground} startDate={event.startDate} endDate={event.endDate} location={event.location} primaryButton={<ShareButton />} />
             }
         </>
     )

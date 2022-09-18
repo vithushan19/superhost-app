@@ -5,21 +5,20 @@ import { useDrag } from "react-use-gesture"
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { SwatchesPicker } from "react-color"
-import { SparklesIcon } from "@heroicons/react/outline"
+import { AdjustmentsIcon, SparklesIcon } from "@heroicons/react/outline"
 import ShareModal from "../components/ShareModal"
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore"
 import { db } from "../utils/firebase-config"
-
-import { Label } from "../components/Label"
 import Image from "next/future/image"
 
-const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, title, titleFont, titleColor, backgroundURL, dateDetails, location }) => {
+const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, title, titleFont, titleColor, fontSize, backgroundURL, dateDetails, location }) => {
     const locationText = (location !== undefined ) ? location : ""
+    console.log(fontSize)
     return (
         <div className="w-full flex justify-center px-2" style={{ height: '65vh', touchAction: 'none' }}>
             <div className={`w-full flex flex-col justify-center items-center ${ backgroundURL ? 'bg-black' : 'bg-white' }`} style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 <animated.div {...bindTitlePos()} style={{ y: titlePos.y, x: titlePos.x }}>
-                    <p style={{ color: titleColor }} className={`tracking-wide ${titleFont} text-2xl font-bold`}>{title}</p>
+                    <p style={{ color: titleColor, fontSize: `${fontSize}px` }} className={`tracking-wide ${titleFont} font-bold`}>{title}</p>
                 </animated.div>
                 <animated.div {...bindDetailsPos()} style={{ y: detailsPos.y, x: detailsPos.x }} className="text-neutral flex flex-col text-xs text-left">
                     <p><b>Date: </b>{dateDetails}</p>
@@ -57,9 +56,11 @@ const CardDesignLayout = () => {
     const [title, setTitle] = useState("Placeholder Title")
     const [titleColor, setTitleColor] = useState("#475569")
     const [titleFont, setTitleFont] = useState("font-dancingScript")
+    const [fontSize, setFontSize] = useState(24)
     const [displayColorDrawer, setDisplayColorDrawer] = useState(false)
     const [displayFontDrawer, setDisplayFontDrawer] = useState(false)
     const [displayTitleDrawer, setDisplayTitleDrawer] = useState(false)
+    const [displaySizeDrawer, setDisplaySizeDrawer] = useState(false)
     const [eventId, setEventId] = useState("")
 
     const {
@@ -129,6 +130,7 @@ const CardDesignLayout = () => {
             designProps: {
                 titleFont: titleFont,
                 titleColor: titleColor,
+                fontSize: fontSize,
                 titlePos: JSON.stringify({ x: titlePos.x, y: titlePos.y }) ,
                 detailsPos: JSON.stringify({ x: detailsPos.x, y: detailsPos.y })
             }
@@ -146,6 +148,10 @@ const CardDesignLayout = () => {
 
     const onTitleChange = (event) => {
         setTitle(event.target.value)
+    }
+
+    const onFontSizeChange = (event) => {
+        setFontSize(event.target.value)
     }
 
     const onBackgroundSelect = (event, image) => {
@@ -167,7 +173,7 @@ const CardDesignLayout = () => {
             <ShareModal showModal={showShareModal} showSpinner={showShareSpinner} setShowModal={setShowShareModal} onSharePress={onSharePress} />
             <div className={`flex flex-col h-screen w-full justify-between`}>
                 <CreateEventButton />
-                <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} title={title} titleFont={titleFont} titleColor={titleColor} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
+                <ImagePreview titlePos={titlePos} bindTitlePos={bindTitlePos} detailsPos={detailsPos} bindDetailsPos={bindDetailsPos} title={title} titleFont={titleFont} titleColor={titleColor} fontSize={fontSize} backgroundURL={selectedBg} dateDetails={startDate} location={eventLocation} />
                 <div className="flex flex-col w-full justify-center items-center gap-5">
                     <div className="flex w-full items-center justify-around">
                         <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplayColorDrawer(!displayColorDrawer) }}>
@@ -181,6 +187,10 @@ const CardDesignLayout = () => {
                                 <polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line>
                             </svg>
                             Fonts
+                        </button>
+                        <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplaySizeDrawer(!displaySizeDrawer) }}>
+                            <AdjustmentsIcon className="h-5 w-5 mr-2"/>
+                            Size
                         </button>
                         <button className="btn btn-outline btn-xs gap-2" onClick={() => { setDisplayTitleDrawer(!displayFontDrawer) }}>
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -207,8 +217,21 @@ const CardDesignLayout = () => {
             >
                 <div className="bg-base-100 h-full w-full px-5 py-3 flex flex-col justify-between items-center">
                     <div className="w-full">
-                        <Label title={"Event Title"} />
-                        <input type="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={title} required onChange={onTitleChange} />
+                        <label className="label">Event Title</label>
+                        <input type="title" id="title" className="input input-bordered max-w-xs w-full p-2.5" value={title} required onChange={onTitleChange} />
+                    </div>
+                </div>
+            </Drawer>
+            <Drawer
+                open={displaySizeDrawer}
+                onClose={() => { setDisplaySizeDrawer(!displaySizeDrawer) }}
+                direction='bottom'
+                size={200}
+            >
+                <div className="bg-base-100 h-full w-full px-5 py-3 flex flex-col justify-between items-center">
+                    <div className="w-full">
+                        <label className="label">Adjust Font Size</label>
+                        <input type="range" min="0" max="128" value={fontSize} className="range" onInput={onFontSizeChange} />
                     </div>
                 </div>
             </Drawer>
