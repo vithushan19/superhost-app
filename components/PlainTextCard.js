@@ -9,7 +9,7 @@ const PlainTextCard = ({ titlePos, detailsPos, title, titleFont, titleColor, fon
     const locationText = (location !== undefined) ? location : ""
 
     return (
-        <div className="w-full h-screen flex flex-col gap-5 justify-start px-2">
+        <div className="w-full h-screen flex flex-col gap-2 justify-start px-2">
             <div className="my-2 w-full flex justify-end">
                 <button className="btn btn-primary" onClick={onRSVP}>
                     <SparklesIcon className='h-5 w-5 mr-2' />
