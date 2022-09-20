@@ -85,7 +85,7 @@ const EventRSVP = () => {
                 }
                 <form id="rsvpform" className='flex flex-col items-stretch justify-center gap-4 mx-3' onSubmit={onRSVPSubmit}>
                     <label className="label">Your Name</label>
-                    <input required value={name} onChange={(event) => { setName(event.target.value) } } type="text" placeholder="Bruce Wayne" className="input input-bordered w-full max-w-xs" />
+                    <input required value={name} onChange={(event) => { setName(event.target.value) } } type="text" className="input input-bordered w-full max-w-xs" />
                     <label className="label">Attending?</label>
                     <select id="status" required value={status} onChange={(event) => { setStatus(event.target.value) }} className="select select-bordered w-full max-w-xs">
                         <option value="Attending">{"I'll be there!"}</option>
