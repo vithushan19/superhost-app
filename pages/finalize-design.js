@@ -13,7 +13,6 @@ import Image from "next/future/image"
 
 const ImagePreview = ({ titlePos, bindTitlePos, detailsPos, bindDetailsPos, title, titleFont, titleColor, fontSize, backgroundURL, dateDetails, location }) => {
     const locationText = (location !== undefined ) ? location : ""
-    console.log(fontSize)
     return (
         <div className="w-full flex justify-center px-2" style={{ height: '65vh', touchAction: 'none' }}>
             <div className={`w-full flex flex-col justify-center items-center ${ backgroundURL ? 'bg-black' : 'bg-white' }`} style={{ backgroundImage: `url("${`backgrounds/${backgroundURL ?? '1.jpg'}`}")`, aspectRatio: '4/3', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
