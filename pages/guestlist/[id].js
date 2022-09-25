@@ -12,6 +12,34 @@ const GuestList = () => {
     const [eventQuestions, setEventQuestions] = useState([])
     const [countMap, setCountMap] = useState(new Map())
 
+    const displayGuestName = (fullName) => {
+        const name = fullName.split(' ')
+
+        if (name.length > 2 && name[1] !== null) {
+            return `${name[0]} ${name[1][0].toUpperCase()}.`
+        } else {
+            return name[0]
+        }
+    }
+
+    const displayAnswersData = (answers) => {
+        const answersArr = Object.values(answers)
+
+        if (answersArr.length > 0) {
+            return answersArr.map((response, id) => {
+                const answer = String(response)
+                
+                if (answer === "true") {
+                    return <td key={id}>yes</td>
+                } else {
+                    return <td key={id}>no</td>
+                }
+            })
+        } else {
+            return <td>no</td>
+        }
+    }
+
     useEffect(() => {
         const fetchFirestoreData = async () => {
             if (eventId) {
@@ -71,7 +99,7 @@ const GuestList = () => {
     }, [eventId])
 
     return (
-        <div className="px-4 py-0 bg-gray-900">
+        <div className="px-4">
             <main className="flex flex-col items-stretch px-2 py-6 h-screen gap-3">
                 <div className="flex w-full items-center justify-between">
                     <button className="btn btn-secondary" onClick={() => router.back()}>
@@ -87,33 +115,31 @@ const GuestList = () => {
                 {
                     guests.length > 0 &&
                     <>
-                        <div className="card shadow-xl bg-neutral text-lg flex flex-col gap-1.5">
-                            <div className="card-body items-start">
-                                <h3 className="card-title text-primary">Guest Responses</h3>
-                                {Array.from(countMap.keys()).map((key, id) => {
+                        <div className="shadow-xl bg-neutral text-lg flex flex-col gap-1.5 w-full h-28 px-5 my-2 py-3">
+                            <h3 className="text-primary font-bold uppercase">Guest Responses</h3>
+                            {Array.from(countMap.keys()).map((key, id) => {
                                 if (key === "0") {
                                     const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                                     return (
-                                        <div key={id} className="inline-flex gap-2"><p>Attending Event: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
+                                        <div key={id} className="inline-flex gap-2 text-sm"><p>Attending Event: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "1") {
                                     const attendingCount = countMap.get(key).find(element => element.name === "Attending")
                                     return (
-                                        <div key={id} className="inline-flex gap-2"><p>Attending Pregame: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
+                                        <div key={id} className="inline-flex gap-2 text-sm"><p>Attending Pregame: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "2") {
                                     const attendingCount = countMap.get(key).find(element => element.name === "true")
                                     return (
-                                        <div key={id} className="inline-flex gap-2"><p>Bringing a +1: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
+                                        <div key={id} className="inline-flex gap-2 text-sm"><p>Bringing a +1: </p><p className="text-primary">{(attendingCount !== undefined ? attendingCount.value : 0 )}</p></div>
                                     )
                                 } else if (key === "3") {
                                     const drinkingCount = countMap.get(key).find(element => element.name === "true")
                                     return (
-                                        <div key={id} className="inline-flex gap-2"><p>Will be drinking: </p><p className="text-primary">{(drinkingCount !== undefined ? drinkingCount.value : 0 )}</p></div>
+                                        <div key={id} className="inline-flex gap-2 text-sm"><p>Will be drinking: </p><p className="text-primary">{(drinkingCount !== undefined ? drinkingCount.value : 0 )}</p></div>
                                     )
                                 }
                             })}
-                            </div>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="table table-compact w-full">
@@ -141,15 +167,12 @@ const GuestList = () => {
                                             return (
                                                 <tr key={id}>
                                                     <th>
-                                                        {guest.id}
+                                                        {displayGuestName(guest.id)}
                                                     </th>
                                                     <td>
                                                         {guest.data.rsvpStatus}
                                                     </td>
-                                                    {Object.values(guest.data.answers).map((response, id) => {
-                                                        const answer = String(response)
-                                                        return <td key={id}>{answer}</td>
-                                                    })}
+                                                    {displayAnswersData(guest.data.answers)}
                                                 </tr>
                                             )
                                         })
