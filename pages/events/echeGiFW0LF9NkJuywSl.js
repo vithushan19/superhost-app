@@ -11,7 +11,7 @@ const Event = ({ event }) => {
   const router = useRouter()
   const eventID ='echeGiFW0LF9NkJuywSl'
   const GetDirectionsButton = () => (
-    <a href="">
+    <a target={"_blank"} href="https://goo.gl/maps/99icEhda4RGzGpho8" rel="noreferrer">
     <button className="text-white btn btn-block btn-primary">
       <SparklesIcon className='w-5 h-5 mr-2' />
       Get Directions
