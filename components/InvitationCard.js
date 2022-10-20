@@ -4,9 +4,10 @@ import { ClockIcon, LocationMarkerIcon } from "@heroicons/react/outline"
 import CardDetails from "./CardDetails"
 import LocationCardDetails from "./LocationCardDetails"
 
+const imgURL = ''
 const FullScreenOverlayCard = ({ title, imageURL, location, dateDetails, primaryButton, secondaryButton }) => (
     <>
-        <div className="flex flex-col justify-between w-full h-screen" style={{ backgroundImage: `url("${imageURL}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat' }}>
+        <div className="flex flex-col justify-between w-full h-screen" style={{ backgroundImage: `url("${imgURL}")`, aspectRatio: '4/3', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat' }}>
             <div className='flex flex-col h-2/6' style={{ background: 'linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5)' }}>
                 {secondaryButton}
                 <p className="pt-5 text-2xl font-extrabold tracking-wide text-center text-gray-50 font-dancingScript word">
@@ -24,16 +25,14 @@ const FullScreenOverlayCard = ({ title, imageURL, location, dateDetails, primary
                         Schedule
                     </div>
                     </div>
-                    <p>PRE WEDDING</p>
-                    <p>5:30 Paal Ceremony at Grooms House</p>
-                    <p>7:30 Bride Side Photos at Brides House</p>
-                    <p>8:00 Groom Side Photos at Grooms House</p>
-                    <p>8:30 Bride Side Goes to the Hall</p>
-                    <p>9:00 Grooms Side Goes to the Hall</p>
+                    <p>GROOM SIDE PRE WEDDING</p>
+                    <p>5:30 Paal Ceremony</p>
+                    <p>8:00 Photos</p>
+                    <p>9:00 Go to the Hall</p>
                     <p className='mt-2'>WEDDING</p>
-                    <p>9:00 Brides First Entrance</p>
                     <p>9:30 Grooms Entrance</p>
-                    <p>11:00 Brides Second Entrance</p>
+                    <p>10:00 Brides First Entrance</p>
+                    <p>11:00 Brides Changes</p>
                     <p>11:30 Thali Time</p>
                     <p>12:00 Registration</p>
                     <p>12:15 Lunch and Photos</p>
