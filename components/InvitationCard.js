@@ -17,10 +17,27 @@ const FullScreenOverlayCard = ({ title, imageURL, location, dateDetails, primary
                 </p>
             </div>
             <div className="flex flex-col items-stretch px-2 pb-5">
-                <CardDetails
+                <div className="p-4 mb-2 font-medium rounded bg-gradient-to-r from-gray-200 to-gray-400 text-slate-900">
+                    <div className='flex items-center'>
+                    <ClockIcon className="w-5 h-5 mr-1 text-slate-900" />
+                    Schedule
+                    </div>
+                    <p>5:30 Paal Ceremony at Grooms House</p>
+                    <p>7:30 Bride Side Photos at Brides House</p>
+                    <p>8:00 Groom Side Photos at Grooms House</p>
+                    <p>8:30 Bride Side Goes to the Hall</p>
+                    <p>9:00 Grooms Side Goes to the Hall</p>
+                    <p>9:00 Brides First Entrance</p>
+                    <p>9:30 Grooms Entrance</p>
+                    <p>11:30 Thali Time</p>
+                    <p>12:00 Registration</p>
+                    <p>12:15 Lunch and Photos</p>
+                    <p>14:30 End </p>
+                </div>
+                {/* <CardDetails
                     text={dateDetails}
                     icon={<ClockIcon className="w-5 h-5 mr-1 text-slate-900" />}
-                />
+                /> */}
                 <LocationCardDetails
                     text={location}
                     icon={
